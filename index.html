@@ -313,20 +313,6 @@
             50% { transform: translateY(-8px) rotate(-1.5deg); }
         }
 
-        .casio-real-img {
-            width: 100%;
-            max-width: 190px;
-            height: auto;
-            border-radius: 16px;
-            filter: drop-shadow(0 12px 18px rgba(0,0,0,0.3));
-            animation: floatCalc 4s ease-in-out infinite;
-        }
-
-        @keyframes floatCalc {
-            0%, 100% { transform: translateY(0) rotate(1deg); }
-            50% { transform: translateY(-7px) rotate(-1deg); }
-        }
-
         /* Seksyen Kad Pilihan Test (Pre vs Post) */
         .cards-grid {
             display: grid;
@@ -368,12 +354,12 @@
             box-shadow: 0 8px 0 #047857, 0 10px 15px rgba(0,0,0,0.06);
         }
 
-        /* Style Disabled */
+        /* Style Disabled bagi sebarang kad */
         .card.disabled {
             background: #f1f5f9 !important;
             border-color: #cbd5e1 !important;
             box-shadow: 0 8px 0 #94a3b8 !important;
-            opacity: 0.75;
+            opacity: 0.8;
         }
 
         .card-icon-circle {
@@ -386,11 +372,12 @@
             justify-content: center;
             font-size: 26px;
             box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
 
         .card-pre .card-icon-circle { background: #0284c7; color: white; }
         .card-post .card-icon-circle { background: #10b981; color: white; }
-        .card.disabled .card-icon-circle { background: #94a3b8; color: white; }
+        .card.disabled .card-icon-circle { background: #94a3b8 !important; color: white !important; }
 
         .card-title {
             font-family: 'Montserrat', sans-serif;
@@ -457,6 +444,7 @@
             cursor: not-allowed;
             pointer-events: none;
             border: 1.5px solid #cbd5e1;
+            color: #f1f5f9 !important;
         }
 
         .btn-action:active {
@@ -734,7 +722,7 @@
                     <rect x="25" y="68" width="230" height="95" rx="8" fill="#a8526d" stroke="#f3b6c8" stroke-width="2"/>
                     <rect x="33" y="75" width="214" height="80" rx="4" fill="url(#lcdScreen)"/>
 
-                    <!-- LCD Content (Stat Table like picture) -->
+                    <!-- LCD Content -->
                     <text x="135" y="87" font-family="monospace" font-size="8" fill="#111" text-anchor="middle">D</text>
                     <!-- Grid Table -->
                     <line x1="40" y1="90" x2="240" y2="90" stroke="#222" stroke-width="0.7"/>
@@ -775,14 +763,13 @@
                     <text x="238" y="150" font-family="monospace" font-size="11" font-weight="bold" fill="#000" text-anchor="end">=Mean(D1:D40)</text>
 
                     <!-- Top Round Action Buttons -->
-                    <!-- SHIFT & ALPHA -->
                     <text x="43" y="171" font-family="sans-serif" font-size="6" font-weight="bold" fill="#ffcc00">SHIFT</text>
                     <circle cx="48" cy="180" r="9" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
 
                     <text x="79" y="171" font-family="sans-serif" font-size="6" font-weight="bold" fill="#e62e2e">ALPHA</text>
                     <circle cx="85" cy="180" r="9" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
 
-                    <!-- D-Pad (Navigation Pad) -->
+                    <!-- D-Pad -->
                     <ellipse cx="140" cy="188" rx="28" ry="18" fill="url(#btnDarkPink)" filter="url(#shadowBtn)"/>
                     <ellipse cx="140" cy="188" rx="14" ry="8" fill="#8a3c54"/>
 
@@ -793,8 +780,7 @@
                     <text x="232" y="171" font-family="sans-serif" font-size="6" font-weight="bold" fill="#fff">ON</text>
                     <circle cx="237" cy="180" r="9" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
 
-                    <!-- Function Keys Section (Grid of small buttons) -->
-                    <!-- Row 1 -->
+                    <!-- Function Keys Section -->
                     <rect x="32" y="202" width="28" height="12" rx="3" fill="url(#btnDarkPink)" filter="url(#shadowBtn)"/>
                     <text x="46" y="211" font-family="sans-serif" font-size="6" fill="#fff" text-anchor="middle">OPTN</text>
 
@@ -807,7 +793,6 @@
                     <rect x="219" y="202" width="28" height="12" rx="3" fill="url(#btnDarkPink)" filter="url(#shadowBtn)"/>
                     <text x="233" y="211" font-family="sans-serif" font-size="7" fill="#fff" font-style="italic" text-anchor="middle">x</text>
 
-                    <!-- Row 2 -->
                     <rect x="32" y="222" width="28" height="12" rx="3" fill="url(#btnDarkPink)" filter="url(#shadowBtn)"/>
                     <text x="46" y="231" font-family="sans-serif" font-size="7" fill="#fff" text-anchor="middle">x⁻¹</text>
 
@@ -864,8 +849,7 @@
                     <rect x="227" y="262" width="28" height="12" rx="3" fill="url(#btnDarkPink)" filter="url(#shadowBtn)"/>
                     <text x="241" y="271" font-family="sans-serif" font-size="6" fill="#fff" text-anchor="middle">M+</text>
 
-                    <!-- Keypad Area (Numpad Grid) -->
-                    <!-- Row 7 8 9 DEL AC -->
+                    <!-- Keypad Area -->
                     <rect x="30" y="290" width="38" height="24" rx="4" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
                     <text x="49" y="307" font-family="'Montserrat', sans-serif" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">7</text>
 
@@ -881,7 +865,6 @@
                     <rect x="214" y="290" width="38" height="24" rx="4" fill="url(#btnOrange)" filter="url(#shadowBtn)"/>
                     <text x="233" y="306" font-family="'Montserrat', sans-serif" font-weight="800" font-size="11" fill="#4a2212" text-anchor="middle">AC</text>
 
-                    <!-- Row 4 5 6 x ÷ -->
                     <rect x="30" y="325" width="38" height="24" rx="4" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
                     <text x="49" y="342" font-family="'Montserrat', sans-serif" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">4</text>
 
@@ -897,7 +880,6 @@
                     <rect x="214" y="325" width="38" height="24" rx="4" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
                     <text x="233" y="342" font-family="'Montserrat', sans-serif" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">÷</text>
 
-                    <!-- Row 1 2 3 + - -->
                     <rect x="30" y="360" width="38" height="24" rx="4" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
                     <text x="49" y="377" font-family="'Montserrat', sans-serif" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">1</text>
 
@@ -913,7 +895,6 @@
                     <rect x="214" y="360" width="38" height="24" rx="4" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
                     <text x="233" y="377" font-family="'Montserrat', sans-serif" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">-</text>
 
-                    <!-- Bottom Row 0 . x10^x Ans = -->
                     <rect x="30" y="395" width="38" height="24" rx="4" fill="url(#btnPink)" filter="url(#shadowBtn)"/>
                     <text x="49" y="412" font-family="'Montserrat', sans-serif" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">0</text>
 
@@ -936,10 +917,10 @@
         <div class="cards-grid">
             
             <!-- Kad 1: Pre-Test -->
-            <div class="card card-pre">
+            <div class="card card-pre" id="card-pre">
                 <div>
-                    <div class="card-icon-circle">
-                        <i class="fa-solid fa-file-pen"></i>
+                    <div class="card-icon-circle" id="pre-icon-box">
+                        <i class="fa-solid fa-file-pen" id="pre-icon"></i>
                     </div>
                     <div class="card-title">01. PRE-TEST</div>
                     <div class="card-desc">
@@ -948,12 +929,12 @@
                 </div>
                 <!-- Pautan Pre-Test -->
                 <a href="https://google.com" id="btn-pre" target="_blank" class="btn-action btn-pre" onclick="enablePostTest()">
-                    <span>Mula Pre-Test</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <span id="pre-btn-text">Mula Pre-Test</span>
+                    <i class="fa-solid fa-arrow-right" id="pre-btn-icon"></i>
                 </a>
             </div>
 
-            <!-- Kad 2: Post-Test (Terkunci secara automatik) -->
+            <!-- Kad 2: Post-Test (Terkunci secara automatik pada awalnya) -->
             <div class="card card-post disabled" id="card-post">
                 <div>
                     <div class="card-icon-circle" id="post-icon-box">
@@ -993,7 +974,7 @@
             <span>Status Portal: <strong id="status-label" style="color: #d97706;">Pre-Test Belum Ditekan</strong></span>
             <div>
                 <button class="admin-btn" onclick="openModal()"><i class="fa-solid fa-gear"></i> Tetap URL</button>
-                <button class="admin-btn" onclick="resetProgress()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+                <button class="admin-btn" onclick="resetProgress()"><i class="fa-solid fa-rotate-left"></i> Reset Progress</button>
             </div>
         </div>
 
@@ -1023,7 +1004,7 @@
     </div>
 
     <script>
-        // Default URLs - Tukar nama fail .html atau pautan borang anda di sini:
+        // Default URLs
         const DEFAULT_PRE_URL = "Pre-test.html";
         const DEFAULT_POST_URL = "Post-test.html";
 
@@ -1036,8 +1017,6 @@
             let preUrl = localStorage.getItem('casio_pre_url') || DEFAULT_PRE_URL;
             let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
 
-            document.getElementById('btn-pre').href = preUrl;
-
             document.getElementById('input-pre-url').value = preUrl;
             document.getElementById('input-post-url').value = postUrl;
 
@@ -1045,56 +1024,104 @@
         }
 
         function enablePostTest() {
-            // Simpan status bahawa Pre-Test telah ditekan
+            // Simpan status bahawa Pre-Test telah ditekan / dimulakan
             localStorage.setItem('preTestDone', 'true');
             
-            // Re-check status selepas seketika
+            // Re-check status selepas seketika untuk mengemas kini paparan
             setTimeout(function() {
                 checkStatus();
-            }, 800);
+            }, 500);
         }
 
         function checkStatus() {
             const isDone = localStorage.getItem('preTestDone') === 'true';
+            let preUrl = localStorage.getItem('casio_pre_url') || DEFAULT_PRE_URL;
             let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
             
+            // Pre-Test elements
+            const preCard = document.getElementById('card-pre');
+            const preBtn = document.getElementById('btn-pre');
+            const preIcon = document.getElementById('pre-icon');
+            const preBtnText = document.getElementById('pre-btn-text');
+            const preBtnIcon = document.getElementById('pre-btn-icon');
+
+            // Post-Test elements
             const postCard = document.getElementById('card-post');
             const postBtn = document.getElementById('btn-post');
             const postIcon = document.getElementById('post-icon');
             const postBtnText = document.getElementById('post-btn-text');
             const postBtnIcon = document.getElementById('post-btn-icon');
+
             const statusLabel = document.getElementById('status-label');
 
             if (isDone) {
-                // Aktifkan Post-Test
+                // ==========================================
+                // APABILA PRE-TEST DAH SELESAI / DITEKAN:
+                // Pre-Test -> DISABLE
+                // Post-Test -> ENABLE
+                // ==========================================
+                
+                // 1. Kunci Kad & Butang Pre-Test
+                preCard.classList.add('disabled');
+                preIcon.className = "fa-solid fa-circle-check";
+                preBtn.className = "btn-action btn-disabled";
+                preBtn.removeAttribute('href');
+                preBtn.removeAttribute('target');
+                preBtn.onclick = function(e) {
+                    e.preventDefault();
+                    return false;
+                };
+                preBtnText.innerText = "Pre-Test Selesai";
+                preBtnIcon.className = "fa-solid fa-lock";
+
+                // 2. Buka Kad & Butang Post-Test
                 postCard.classList.remove('disabled');
-
                 postIcon.className = "fa-solid fa-graduation-cap";
-
                 postBtn.className = "btn-action btn-post";
                 postBtn.href = postUrl;
-                postBtn.onclick = null; // Buka sekat klik
+                postBtn.target = "_blank";
+                postBtn.onclick = null; // Aktifkan pautan
                 postBtnText.innerText = "Mula Post-Test";
                 postBtnIcon.className = "fa-solid fa-arrow-right";
 
-                statusLabel.innerText = "Selesai (Post-Test Dibuka)";
+                // Update Status Bar
+                statusLabel.innerText = "Pre-Test Selesai (Post-Test Dibuka)";
                 statusLabel.style.color = "#10b981";
+
             } else {
-                // Kekalkan Terkunci
+                // ==========================================
+                // APABILA PRE-TEST BELUM DITEKAN / DIISI:
+                // Pre-Test -> ENABLE
+                // Post-Test -> DISABLE
+                // ==========================================
+
+                // 1. Buka Kad & Butang Pre-Test
+                preCard.classList.remove('disabled');
+                preIcon.className = "fa-solid fa-file-pen";
+                preBtn.className = "btn-action btn-pre";
+                preBtn.href = preUrl;
+                preBtn.target = "_blank";
+                preBtn.onclick = function() {
+                    enablePostTest();
+                };
+                preBtnText.innerText = "Mula Pre-Test";
+                preBtnIcon.className = "fa-solid fa-arrow-right";
+
+                // 2. Kunci Kad & Butang Post-Test
                 postCard.classList.add('disabled');
-
                 postIcon.className = "fa-solid fa-lock";
-
                 postBtn.className = "btn-action btn-disabled";
-                postBtn.removeAttribute('href'); // Buang link jika belum tekan Pre-Test
-                postBtn.onclick = function(e) { 
-                    e.preventDefault(); 
-                    return false; 
+                postBtn.removeAttribute('href');
+                postBtn.removeAttribute('target');
+                postBtn.onclick = function(e) {
+                    e.preventDefault();
+                    return false;
                 };
                 postBtnText.innerText = "Selesaikan Pre-Test Dahulu";
                 postBtnIcon.className = "fa-solid fa-lock";
 
-                statusLabel.innerText = "Pre-Test Belum Ditekan";
+                // Update Status Bar
+                statusLabel.innerText = "Sila Lengkapkan Pre-Test Dahulu";
                 statusLabel.style.color = "#d97706";
             }
         }
