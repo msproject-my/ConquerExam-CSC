@@ -494,6 +494,7 @@
 
     </div>
 
+    <!-- Custom Modal Dialog -->
     <div id="customModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white border-4 border-white rounded-3xl shadow-2xl p-6 max-w-sm w-full text-center space-y-4 transform transition-all scale-100">
             <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl border-2 border-amber-300">
@@ -510,6 +511,9 @@
     <script>
         // Google Apps Script Endpoint URL
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiwblOTUaVrc2spBGLLncUoUjFOw8bpEPRORvZLuSUZjZ6ngGqXBPYig_P3R_9h530/exec";
+
+        // Status Flag for exit/redirect
+        let isShouldCloseOrRedirect = false;
 
         // Likert Questions list (Post-Survey)
         const likertQuestions = [
@@ -699,18 +703,36 @@
             });
         }
 
-        function showModal(msg, title = "Peringatan") {
+        // Show Custom Modal
+        function showModal(msg, title = "Peringatan", shouldExit = false) {
+            isShouldCloseOrRedirect = shouldExit;
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalMessage').innerText = msg;
             document.getElementById('customModal').classList.remove('hidden');
         }
 
+        // Close Custom Modal & Handle Window Close / Page Redirection
         function closeModal() {
             document.getElementById('customModal').classList.add('hidden');
+            
+            if (isShouldCloseOrRedirect) {
+                // Cuba tutup tetingkap browser secara terus
+                window.close();
+                
+                // Fallback sekiranya browser menyekat window.close()
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 300);
+            }
         }
 
+        // Fungsi Selesai & Keluar Kuiz
         function exitQuiz() {
-            showModal("Terima kasih! Penilaian anda telah direkodkan. Anda kini boleh menutup tetingkap ini.", "Selesai Penilaian!");
+            showModal(
+                "Terima kasih! Penilaian anda telah selamat direkodkan. Anda akan dikembalikan ke Laman Utama Portal.", 
+                "Tahniah & Selesai!", 
+                true
+            );
         }
 
         function renderLikertQuestions() {
