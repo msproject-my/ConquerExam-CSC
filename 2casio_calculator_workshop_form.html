@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conquer Exam with Casio Scientific Calculator - Borang Penilaian</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Fredoka & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration and Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 35%, #bae6fd 70%, #e0f2fe 100%);
+            min-height: 100vh;
+        }
+
+        .font-heading {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        .poster-card {
+            background: rgba(255, 255, 255, 0.96);
+            border: 6px solid #ffffff;
+            box-shadow: 
+                0 25px 40px -12px rgba(2, 132, 199, 0.35),
+                0 12px 20px -5px rgba(0, 0, 0, 0.12),
+                inset 0 3px 6px rgba(255, 255, 255, 0.9);
+            border-radius: 2rem;
+        }
+
+        .title-3d-box {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            border: 4px solid #ffffff;
+            box-shadow: 
+                0 12px 24px rgba(3, 105, 161, 0.4),
+                inset 0 4px 6px rgba(255, 255, 255, 0.45),
+                inset 0 -4px 6px rgba(0, 0, 0, 0.25);
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .pill-red-3d {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: 3px solid #ffffff;
+            box-shadow: 
+                0 6px 14px rgba(220, 38, 38, 0.4),
+                inset 0 3px 4px rgba(255, 255, 255, 0.4);
+        }
+
+        .header-3d-blue {
+            background: linear-gradient(90deg, #0284c7 0%, #0d9488 100%);
+            border: 3px solid #ffffff;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(2, 132, 199, 0.2);
+        }
+
+        .header-3d-green {
+            background: linear-gradient(90deg, #16a34a 0%, #15803d 100%);
+            border: 3px solid #ffffff;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(22, 163, 74, 0.2);
+        }
+
+        .header-3d-dark {
+            background: linear-gradient(90deg, #0f172a 0%, #1e1b4b 100%);
+            border: 3px solid #ffffff;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3), 0 4px 10px rgba(15, 23, 42, 0.3);
+        }
+
+        .badge-number-green {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            box-shadow: 0 4px 8px rgba(22, 163, 74, 0.35), inset 0 2px 2px rgba(255, 255, 255, 0.4);
+            border: 2px solid #ffffff;
+        }
+
+        .important-note-3d {
+            background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+            border: 3px solid #ffffff;
+            box-shadow: 0 10px 20px rgba(234, 179, 8, 0.3);
+        }
+
+        .btn-3d-blue {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            border: 3px solid #ffffff;
+            box-shadow: 0 6px 14px rgba(2, 132, 199, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-3d-emerald {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            border: 3px solid #ffffff;
+            box-shadow: 0 6px 14px rgba(16, 185, 129, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-3d-slate {
+            background: linear-gradient(135deg, #64748b 0%, #334155 100%);
+            border: 3px solid #ffffff;
+            box-shadow: 0 6px 14px rgba(51, 65, 85, 0.3), inset 0 2px 3px rgba(255, 255, 255, 0.4);
+        }
+
+        .radio-likert:checked + label {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            border-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .quiz-opt-card {
+            background: #1e293b;
+            border: 2px solid #334155;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-opt:checked + label .quiz-opt-card {
+            background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
+            border-color: #ffffff;
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.5);
+            transform: translateY(-2px);
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(4deg); }
+        }
+
+        .float-anim {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        .step-pill-active {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+        }
+
+        .step-pill-done {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .step-pill-inactive {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="py-6 px-3 sm:px-6 lg:px-12 text-slate-800 relative overflow-x-hidden">
+
+    <div class="absolute top-10 left-5 text-amber-300 text-3xl sm:text-4xl opacity-80 float-anim pointer-events-none z-0">
+        <i class="fa-solid fa-star"></i>
+    </div>
+    <div class="absolute top-24 right-8 text-white text-4xl sm:text-5xl opacity-90 float-anim pointer-events-none z-0" style="animation-delay: 1.5s;">
+        <i class="fa-solid fa-cloud"></i>
+    </div>
+    <div class="absolute top-96 left-3 text-sky-200 text-5xl opacity-70 float-anim pointer-events-none z-0" style="animation-delay: 2s;">
+        <i class="fa-solid fa-calculator"></i>
+    </div>
+    <div class="absolute bottom-20 right-5 text-amber-200 text-4xl opacity-80 float-anim pointer-events-none z-0" style="animation-delay: 0.8s;">
+        <i class="fa-solid fa-trophy"></i>
+    </div>
+
+    <!-- Main Container Card -->
+    <div class="max-w-4xl mx-auto poster-card p-4 sm:p-8 relative z-10 space-y-6">
+
+        <!-- Top Header Area with Logo & Timer Badge -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-sky-100 pb-4">
+            
+            <div class="bg-white rounded-2xl p-3 shadow-md border-2 border-slate-100 flex items-center space-x-3 w-full md:w-auto justify-center md:justify-start">
+                <div class="w-10 h-10 bg-blue-700 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div>
+                    <h2 class="font-heading font-bold text-slate-800 text-sm tracking-tight leading-none uppercase">CASIO SCIENTIFIC</h2>
+                    <span class="text-[10px] font-bold text-blue-600 tracking-wider uppercase block">BORANG PENILAIAN BENGKEL</span>
+                    <span class="text-[10px] text-slate-500 font-semibold block leading-none">MALAYSIA ACADEMIC EDITION</span>
+                </div>
+            </div>
+
+            <!-- Live Timer Badge (Shows up during Section C) -->
+            <div class="flex items-center space-x-2">
+                <div id="liveTimerBadge" class="hidden bg-gradient-to-r from-amber-400 to-orange-500 text-slate-900 border-2 border-white px-4 py-1.5 rounded-2xl shadow-md font-heading font-extrabold text-xs sm:text-sm flex items-center space-x-2 animate-pulse">
+                    <i class="fa-solid fa-stopwatch text-base"></i>
+                    <span>MASA (BAHAGIAN C): <span id="timerDisplay" class="text-slate-950 font-black">00:00</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center relative py-2">
+            <div class="hidden sm:flex absolute left-2 top-0 bg-white p-3 rounded-2xl shadow-lg border-2 border-slate-100 items-center justify-center text-blue-600 text-3xl float-anim">
+                <i class="fa-solid fa-clipboard-check text-blue-600"></i>
+            </div>
+            <div class="hidden sm:flex absolute right-2 top-0 bg-white p-3 rounded-2xl shadow-lg border-2 border-slate-100 items-center justify-center text-blue-600 text-3xl float-anim" style="animation-delay: 1.2s;">
+                <i class="fa-solid fa-star text-amber-500"></i>
+            </div>
+
+            <div class="inline-block">
+                <span class="bg-blue-600 text-white font-heading font-extrabold text-xs sm:text-sm px-4 py-1 rounded-full uppercase tracking-widest shadow-md inline-block mb-1 border border-white">
+                    BORANG PENILAIAN SELEPAS BENGKEL
+                </span>
+                <div class="title-3d-box text-white rounded-3xl py-3 px-6 sm:px-10 my-1 transform -rotate-1 hover:rotate-0 transition duration-300">
+                    <h1 class="font-heading text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-md uppercase">
+                        Conquer Exam
+                    </h1>
+                </div>
+                <div class="pill-red-3d text-white font-heading font-extrabold text-xs sm:text-base px-6 py-1.5 rounded-full inline-block mt-1 tracking-wider uppercase">
+                    WITH CASIO SCIENTIFIC CALCULATOR
+                </div>
+            </div>
+
+            <div id="introInstructionBanner" class="mt-4 bg-sky-50 border border-sky-200 rounded-2xl p-3 max-w-2xl mx-auto text-xs sm:text-sm text-slate-700 leading-relaxed shadow-inner">
+                Sila lengkapkan <strong>Maklumat Peserta (Bahagian A)</strong>, 
+                <strong>Post-Soal Selidik (Bahagian B)</strong> dan jawab 
+                <strong class="text-blue-800">10 Soalan Cabaran Matematik (Bahagian C)</strong>. 
+                <span class="text-red-600 font-extrabold">Masa akan direkodkan!</span>
+            </div>
+        </div>
+
+        <!-- Wizard Navigation Pills Bar -->
+        <div id="wizardNavPills" class="bg-slate-50 border border-slate-200 rounded-2xl p-2.5 flex justify-between items-center gap-2 text-xs font-heading font-bold">
+            <div id="stepTab1" class="step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer" onclick="goToStep(1)">
+                <span class="block text-[10px] opacity-80">01</span> BAHAGIAN A
+            </div>
+            <div id="stepTab2" class="step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer" onclick="goToStep(2)">
+                <span class="block text-[10px] opacity-80">02</span> BAHAGIAN B
+            </div>
+            <div id="stepTab3" class="step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer" onclick="goToStep(3)">
+                <span class="block text-[10px] opacity-80">03</span> BAHAGIAN C
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <form id="quizForm" onsubmit="event.preventDefault();">
+
+            <div id="sectionA" class="space-y-6">
+                
+                <div class="header-3d-blue text-white p-3.5 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 bg-amber-400 text-amber-950 rounded-xl flex items-center justify-center text-lg shadow font-extrabold">
+                            <i class="fa-solid fa-address-card"></i>
+                        </div>
+                        <h2 class="font-heading font-extrabold text-base sm:text-lg tracking-wide uppercase">
+                            BAHAGIAN A: MAKLUMAT
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="bg-white border-2 border-sky-100 rounded-2xl p-4 sm:p-6 space-y-4 shadow-sm">
+                    <h3 class="font-heading font-bold text-sky-900 text-sm border-b pb-2">Maklumat Asas Peserta</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">1. No. Kad Pengenalan <span class="text-red-500">*</span></label>
+                            <input type="text" id="icNumber" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none" placeholder="Contoh: 06010110XXXX" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">2. No. Telefon <span class="text-red-500">*</span></label>
+                            <input type="tel" id="noTel" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none" placeholder="Contoh: 0123456789" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">3. Alamat Emel <span class="text-red-500">*</span></label>
+                            <input type="email" id="email" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none" placeholder="contoh@email.com" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-2">
+                    <button type="button" onclick="goToStep(2)" class="btn-3d-blue text-white font-heading font-bold px-6 py-2.5 rounded-2xl text-xs sm:text-sm flex items-center space-x-2">
+                        <span>Seterusnya (Bahagian B)</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="sectionB" class="hidden space-y-6">
+                
+                <div class="header-3d-green text-white p-3.5 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 bg-pink-500 text-white rounded-xl flex items-center justify-center text-lg shadow font-extrabold">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+                        <h2 class="font-heading font-extrabold text-base sm:text-lg tracking-wide uppercase">
+                            BAHAGIAN B: POST-SOAL SELIDIK
+                        </h2>
+                    </div>
+                    <span class="text-[10px] sm:text-xs bg-white/20 px-3 py-1 rounded-full font-semibold backdrop-blur-sm hidden sm:inline-block">
+                        Skala Likert (1 - 5) & Terbuka
+                    </span>
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 text-xs text-slate-700 flex items-center justify-between">
+                    <span class="font-semibold text-emerald-950">Skala Penilaian Selepas Bengkel:</span>
+                    <div class="flex items-center space-x-2 font-bold text-[11px] text-emerald-800">
+                        <span>1 = Sangat Tidak Setuju</span>
+                        <i class="fa-solid fa-arrows-left-right text-slate-400"></i>
+                        <span>5 = Sangat Setuju</span>
+                    </div>
+                </div>
+
+                <!-- Likert Questions Container -->
+                <div class="space-y-4" id="likertQuestionsContainer">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+
+                <!-- Open Ended Questions -->
+                <div class="bg-white border-2 border-emerald-100 rounded-2xl p-4 sm:p-6 space-y-5 shadow-sm">
+                    <h3 class="font-heading font-bold text-emerald-900 text-sm border-b pb-2 flex items-center">
+                        <i class="fa-solid fa-comment-dots text-emerald-600 mr-2"></i> Soalan Open-Ended
+                    </h3>
+
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold text-slate-800 mb-1">
+                            10. Apakah 1 fungsi baru fx-570EX yang paling berguna yang anda pelajari hari ini? Mengapa? <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="openQ10" rows="3" class="w-full border-2 border-slate-200 rounded-xl p-3 text-xs sm:text-sm focus:border-emerald-500 focus:outline-none" placeholder="Tulis jawapan anda di sini..." required></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold text-slate-800 mb-1">
+                            11. Apakah 1 cabaran yang anda hadapi semasa menggunakan fx-570EX? <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="openQ11" rows="3" class="w-full border-2 border-slate-200 rounded-xl p-3 text-xs sm:text-sm focus:border-emerald-500 focus:outline-none" placeholder="Tulis jawapan anda di sini..." required></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs sm:text-sm font-bold text-slate-800 mb-1">
+                            12. Cadangan untuk penambahbaikan bengkel pada masa akan datang: <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="openQ12" rows="3" class="w-full border-2 border-slate-200 rounded-xl p-3 text-xs sm:text-sm focus:border-emerald-500 focus:outline-none" placeholder="Tulis cadangan anda di sini..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-2">
+                    <button type="button" onclick="goToStep(1)" class="btn-3d-slate text-white font-heading font-bold px-5 py-2.5 rounded-2xl text-xs sm:text-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Kembali</span>
+                    </button>
+
+                    <button type="button" onclick="startSectionC()" class="btn-3d-emerald text-white font-heading font-bold px-6 py-2.5 rounded-2xl text-xs sm:text-sm flex items-center space-x-2">
+                        <span>Mula Soalan Cabaran (Bahagian C)</span>
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="sectionC" class="hidden space-y-6">
+                
+                <div class="header-3d-dark text-white p-3.5 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 bg-amber-400 text-amber-950 rounded-xl flex items-center justify-center text-lg shadow font-extrabold">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <h2 class="font-heading font-extrabold text-base sm:text-lg tracking-wide uppercase">
+                            BAHAGIAN C: SOALAN CABARAN (10 SOALAN)
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Important Note Badge -->
+                <div class="important-note-3d rounded-2xl p-4 flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <div class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center text-xl font-black shadow-md shrink-0 border-2 border-white">
+                        !
+                    </div>
+                    <div class="flex-1 text-center sm:text-left text-xs sm:text-sm text-amber-950">
+                        <span class="font-heading font-extrabold text-red-600 uppercase text-xs sm:text-sm mr-1">
+                            NOTA PENTING:
+                        </span>
+                        <span>
+                            Pilihan jawapan bagi setiap soalan disediakan. Gunakan kalkulator saintifik Casio untuk pengiraan yang tepat!
+                        </span>
+                    </div>
+                    <div class="hidden md:flex bg-white/70 p-2 rounded-xl text-emerald-700 text-xl border border-white shrink-0">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                </div>
+
+                <div id="quizContainer" class="space-y-6">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t-2 border-dashed border-slate-200">
+                    <button type="button" onclick="goToStep(2)" class="btn-3d-slate text-white font-heading font-bold px-5 py-2.5 rounded-2xl text-xs sm:text-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Kembali</span>
+                    </button>
+
+                    <button type="button" id="submitBtn" onclick="submitForm()" class="btn-3d-emerald text-white font-heading font-extrabold px-8 py-3 rounded-2xl text-sm sm:text-base flex items-center space-x-2 transform hover:scale-105 transition">
+                        <i class="fa-solid fa-paper-plane" id="submitBtnIcon"></i>
+                        <span id="submitBtnText">SUBMIT FORM</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="sectionResult" class="hidden text-center space-y-6 py-4">
+                <div class="w-20 h-20 bg-gradient-to-tr from-emerald-500 to-green-400 text-white rounded-full flex items-center justify-center mx-auto text-4xl shadow-xl border-4 border-white float-anim">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                
+                <div>
+                    <span class="bg-emerald-600 text-white font-heading font-extrabold text-xs px-4 py-1 rounded-full uppercase tracking-widest shadow inline-block mb-1">
+                        PENILAIAN DITERIMA
+                    </span>
+                    <h2 class="font-heading text-2xl sm:text-4xl font-extrabold text-slate-800">Terima Kasih Atas Maklum Balas Anda!</h2>
+                    <p class="text-slate-600 text-xs sm:text-sm mt-1">Penilaian dan markah cabaran anda telah selamat direkodkan.</p>
+                </div>
+
+                <div class="bg-slate-50 border-2 border-slate-200 rounded-3xl p-5 sm:p-6 max-w-xl mx-auto text-left space-y-4 shadow-inner">
+                    <!-- Section: Skor & Masa -->
+                    <div class="bg-white border-2 border-sky-100 rounded-2xl p-4 space-y-2.5 shadow-sm">
+                        <h3 class="font-heading font-bold text-sky-900 text-xs sm:text-sm uppercase tracking-wider border-b pb-1.5 flex items-center">
+                            <i class="fa-solid fa-stopwatch text-amber-500 mr-2"></i> Prestasi Cabaran Matematik
+                        </h3>
+                        <div class="flex justify-between items-center border-b pb-2 text-xs sm:text-sm">
+                            <span class="font-bold text-slate-500 uppercase">Jumlah Skor Cabaran</span>
+                            <span id="finalScore" class="font-heading text-lg sm:text-xl font-extrabold text-emerald-600">0 / 10</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs sm:text-sm">
+                            <span class="font-bold text-slate-500 uppercase">Masa Menjawab (Bahagian C)</span>
+                            <span id="finalTime" class="font-bold text-amber-600">0 saat</span>
+                        </div>
+                    </div>
+
+                    <!-- Section: Detail Maklumat Peserta -->
+                    <div class="bg-white border-2 border-slate-100 rounded-2xl p-4 space-y-2.5 shadow-sm">
+                        <h3 class="font-heading font-bold text-slate-800 text-xs sm:text-sm uppercase tracking-wider border-b pb-1.5 flex items-center">
+                            <i class="fa-solid fa-user-check text-blue-600 mr-2"></i> Maklumat Peserta
+                        </h3>
+
+                        <div class="flex justify-between items-center border-b pb-2 text-xs sm:text-sm">
+                            <span class="font-bold text-slate-500 uppercase">No. Kad Pengenalan</span>
+                            <span id="finalIC" class="font-bold text-slate-800">-</span>
+                        </div>
+
+                        <div class="flex justify-between items-center border-b pb-2 text-xs sm:text-sm">
+                            <span class="font-bold text-slate-500 uppercase">No. Telefon</span>
+                            <span id="finalPhone" class="font-bold text-slate-800">-</span>
+                        </div>
+
+                        <div class="flex justify-between items-center text-xs sm:text-sm">
+                            <span class="font-bold text-slate-500 uppercase">Alamat Emel</span>
+                            <span id="finalEmail" class="font-bold text-slate-800">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Butang Arahan Selesai & Keluar -->
+                <div class="pt-4 flex justify-center">
+                    <button type="button" onclick="exitQuiz()" class="btn-3d-emerald text-white font-heading font-extrabold px-8 py-3 rounded-2xl text-sm sm:text-base flex items-center space-x-2 transform hover:scale-105 transition shadow-lg">
+                        <i class="fa-solid fa-circle-check text-lg"></i>
+                        <span>SELESAI & KELUAR</span>
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+        <!-- Footer Poster Banner -->
+        <div class="border-t-2 border-dashed border-sky-200 pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <div class="flex items-center space-x-2 text-sky-800 font-bold text-center sm:text-left">
+                <div class="w-7 h-7 bg-blue-600 text-white rounded-lg flex items-center justify-center text-xs shadow">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <span>CONQUER EXAM WITH CASIO SCIENTIFIC CALCULATOR</span>
+            </div>
+
+            <div class="font-heading text-blue-900 font-extrabold text-xs sm:text-sm tracking-wide bg-amber-300 px-4 py-1.5 rounded-full shadow border-2 border-white transform hover:scale-105 transition">
+                <i class="fa-solid fa-star text-amber-600 mr-1"></i>
+                Bersama Kita Jayakan Kecemerlangan!
+            </div>
+        </div>
+
+    </div>
+
+    <div id="customModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border-4 border-white rounded-3xl shadow-2xl p-6 max-w-sm w-full text-center space-y-4 transform transition-all scale-100">
+            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl border-2 border-amber-300">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <h3 id="modalTitle" class="font-heading font-bold text-lg text-slate-800">Peringatan</h3>
+            <p id="modalMessage" class="text-xs text-slate-600 leading-relaxed">Sila lengkapkan semua ruangan yang diperlukan.</p>
+            <button onclick="closeModal()" class="btn-3d-blue w-full text-white font-heading font-bold py-2 rounded-xl text-xs uppercase tracking-wider">
+                Faham
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Google Apps Script Endpoint URL
+        const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiwblOTUaVrc2spBGLLncUoUjFOw8bpEPRORvZLuSUZjZ6ngGqXBPYig_P3R_9h530/exec";
+
+        // Likert Questions list (Post-Survey)
+        const likertQuestions = [
+            "Saya yakin boleh menggunakan kalkulator saintifik untuk menyelesaikan soalan Matematik dengan betul",
+            "Saya rasa kalkulator dapat membantu saya menjimatkan masa semasa menjawab soalan exam",
+            "Saya tahu cara menggunakan fungsi operasi aritmetik (tambah, tolak, pecahan, dan punca kuasa) dalam menyelesaikan masalah asas matematik",
+            "Saya tahu cara menggunakan fungsi SOLVER untuk selesaikan masalah algebra dan index",
+            "Saya tahu cara menggunakan fungsi EQUATION untuk selesaikan persamaan",
+            "Saya tahu cara menggunakan fungsi TABLE untuk menjana jadual",
+            "Saya tahu cara menggunakan fungsi STAT untuk mencari min dan sisihan piawai",
+            "Kandungan bengkel hari ini mudah difahami",
+            "Penceramah menyampaikan maklumat dengan jelas"
+        ];
+
+        const rawMathQuizQuestions = [
+            {
+                id: 1,
+                instruction: "BERIKAN JAWAPAN DALAM BENTUK PERPULUHAN",
+                expression: "$$\\left(\\frac{2}{5}\\right)^2 \\times \\sqrt{4} + (0.4)^3 \\times \\sqrt{\\frac{1}{64}} = $$",
+                rawOptions: [
+                    { val: "0.375", correct: false },
+                    { val: "0.328", correct: true },
+                    { val: "$\\frac{41}{125}$", correct: false },
+                    { val: "$\\frac{1}{125}$", correct: false }
+                ]
+            },
+            {
+                id: 2,
+                instruction: "PERMUDAHKAN",
+                expression: "$$1\\frac{1}{6} - \\frac{13}{24} \\div \\frac{3 \\times 13}{4} - \\left(-\\frac{2}{9}\\right) = $$",
+                rawOptions: [
+                    { val: "5.65", correct: false },
+                    { val: "0.328", correct: false },
+                    { val: "$1\\frac{1}{3}$", correct: true },
+                    { val: "$\\frac{1}{125}$", correct: false }
+                ]
+            },
+            {
+                id: 3,
+                instruction: "CARI NILAI BAGI X BERIKUT",
+                expression: "$$\\frac{2x + 3}{4} = \\frac{x - 1}{3}$$",
+                rawOptions: [
+                    { val: "5.65", correct: false },
+                    { val: "0.328", correct: false },
+                    { val: "$1\\frac{1}{3}$", correct: false },
+                    { val: "-6.5", correct: true }
+                ]
+            },
+            {
+                id: 4,
+                instruction: "CARI NILAI BAGI K, JIKA H=6",
+                expression: "$$\\frac{6 + 2h}{5} + \\frac{k - 2}{h} = k$$",
+                rawOptions: [
+                    { val: "5.65", correct: false },
+                    { val: "0.33333", correct: false },
+                    { val: "$3\\frac{23}{25}$", correct: true },
+                    { val: "6", correct: false }
+                ]
+            },
+            {
+                id: 5,
+                instruction: "SELESAIKAN PERSAMAAN LINAR SERENTAK BERIKUT DAN CARI NILAI BAGI X",
+                expression: "$$x + 2y = 8$$ $$-7y + 3x = 11$$",
+                rawOptions: [
+                    { val: "5.65", correct: false },
+                    { val: "0.328", correct: false },
+                    { val: "$\\frac{2}{17}$", correct: false },
+                    { val: "6", correct: true }
+                ]
+            },
+            {
+                id: 6,
+                instruction: "SELESAIKAN PERSAMAAN LINAR SERENTAK BERIKUT DAN CARI NILAI BAGI 2X",
+                expression: "$$x + 2y = 8$$ $$-7y + 3x = 11$$",
+                rawOptions: [
+                    { val: "6", correct: false },
+                    { val: "1", correct: false },
+                    { val: "$\\frac{2}{17}$", correct: false },
+                    { val: "12", correct: true }
+                ]
+            },
+            {
+                id: 7,
+                instruction: "ADAKAH 2053 ADALAH NOMBOR PERDANA?",
+                expression: "",
+                rawOptions: [
+                    { val: "Ya", correct: true },
+                    { val: "Tidak", correct: false }
+                ]
+            },
+            {
+                id: 8,
+                instruction: "APAKAH PEMFAKTORAN PERDANA BAGI 369?",
+                expression: "",
+                rawOptions: [
+                    { val: "$3 \\times 3 \\times 41$", correct: true },
+                    { val: "$3 \\times 9 \\times 41$", correct: false },
+                    { val: "$9 \\times 41$", correct: false },
+                    { val: "$3 \\times 123$", correct: false }
+                ]
+            },
+            {
+                id: 9,
+                instruction: "APAKAH SISIHAN PIAWAI BAGI DATA BERIKUT?",
+                expression: `
+                    <div class="overflow-x-auto my-3">
+                        <table class="mx-auto border-collapse border border-slate-600 text-center text-xs sm:text-sm bg-slate-900 rounded-lg">
+                            <tr class="bg-slate-800 text-sky-300 font-bold">
+                                <td class="border border-slate-700 px-3 py-1.5">X</td>
+                                <td class="border border-slate-700 px-3 py-1.5">6</td>
+                                <td class="border border-slate-700 px-3 py-1.5">6.2</td>
+                                <td class="border border-slate-700 px-3 py-1.5">6.4</td>
+                                <td class="border border-slate-700 px-3 py-1.5">6.6</td>
+                                <td class="border border-slate-700 px-3 py-1.5">6.8</td>
+                                <td class="border border-slate-700 px-3 py-1.5">7</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-slate-700 px-3 py-1.5 font-bold bg-slate-800 text-sky-300">F</td>
+                                <td class="border border-slate-700 px-3 py-1.5">10</td>
+                                <td class="border border-slate-700 px-3 py-1.5">15</td>
+                                <td class="border border-slate-700 px-3 py-1.5">10</td>
+                                <td class="border border-slate-700 px-3 py-1.5">8</td>
+                                <td class="border border-slate-700 px-3 py-1.5">12</td>
+                                <td class="border border-slate-700 px-3 py-1.5">5</td>
+                            </tr>
+                        </table>
+                    </div>
+                `,
+                rawOptions: [
+                    { val: "5.65", correct: false },
+                    { val: "0.1024", correct: false },
+                    { val: "0.32", correct: true },
+                    { val: "$\\frac{1}{125}$", correct: false }
+                ]
+            },
+            {
+                id: 10,
+                instruction: "NYATAKAN TITIK MINIMUM BAGI PERSAMAAN KUADRATIK BERIKUT",
+                expression: "$$y = (x - 4)^2 + 7$$",
+                rawOptions: [
+                    { val: "(5, 7)", correct: false },
+                    { val: "(-5, 7)", correct: false },
+                    { val: "(4, 7)", correct: true },
+                    { val: "(1, 5)", correct: false }
+                ]
+            }
+        ];
+
+        let processedQuestions = [];
+        let timerInterval = null;
+        let startTimeC = null;
+        let elapsedSecondsC = 0;
+        let finalResponseData = {};
+
+        // Helper: Shuffle Array
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            prepareShuffledQuizQuestions();
+            renderLikertQuestions();
+            renderQuizQuestions();
+        });
+
+        // Prepare Questions with Shuffled Option Positions
+        function prepareShuffledQuizQuestions() {
+            const optionLabels = ["A", "B", "C", "D"];
+            processedQuestions = rawMathQuizQuestions.map(q => {
+                const shuffledOpts = shuffleArray(q.rawOptions);
+                const optionsWithLabels = shuffledOpts.map((opt, idx) => ({
+                    label: optionLabels[idx] || String.fromCharCode(65 + idx),
+                    val: opt.val,
+                    correct: opt.correct
+                }));
+                return {
+                    id: q.id,
+                    instruction: q.instruction,
+                    expression: q.expression,
+                    options: optionsWithLabels
+                };
+            });
+        }
+
+        function showModal(msg, title = "Peringatan") {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMessage').innerText = msg;
+            document.getElementById('customModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').classList.add('hidden');
+        }
+
+        function exitQuiz() {
+            showModal("Terima kasih! Penilaian anda telah direkodkan. Anda kini boleh menutup tetingkap ini.", "Selesai Penilaian!");
+        }
+
+        function renderLikertQuestions() {
+            const container = document.getElementById('likertQuestionsContainer');
+            container.innerHTML = likertQuestions.map((q, idx) => `
+                <div class="bg-white p-4 rounded-2xl border-2 border-slate-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex items-start space-x-3 max-w-xl">
+                        <span class="badge-number-green w-7 h-7 rounded-full inline-flex items-center justify-center font-extrabold text-xs shrink-0 mt-0.5">
+                            ${idx + 1}
+                        </span>
+                        <p class="text-xs sm:text-sm font-bold text-slate-800 leading-snug">${q}</p>
+                    </div>
+
+                    <div class="grid grid-cols-5 gap-1.5 text-center w-full sm:w-auto shrink-0">
+                        ${[1, 2, 3, 4, 5].map(num => `
+                            <div>
+                                <input type="radio" id="b_${idx}_${num}" name="likert_${idx}" value="${num}" class="hidden radio-likert" ${num === 3 ? 'checked' : ''}>
+                                <label for="b_${idx}_${num}" class="block border-2 border-slate-200 rounded-xl py-1.5 px-3 cursor-pointer text-xs font-bold transition hover:border-sky-400 bg-slate-50">
+                                    ${num}
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderQuizQuestions() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = processedQuestions.map((q) => `
+                <div class="bg-slate-950 text-white rounded-3xl p-5 sm:p-6 shadow-xl border-4 border-slate-800 space-y-4">
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-amber-400 text-amber-950 font-heading font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                                SOALAN ${q.id}
+                            </span>
+                        </div>
+                        <span class="text-[10px] sm:text-xs font-bold bg-slate-800 text-sky-300 px-3 py-1 rounded-full border border-slate-700">
+                            ${q.expression ? q.instruction : 'SOALAN CABARAN'}
+                        </span>
+                    </div>
+
+                    <!-- Question Expression -->
+                    <div class="text-base sm:text-xl font-bold text-center py-3 text-sky-100 min-h-[3.5rem] flex items-center justify-center">
+                        ${q.expression ? q.expression : q.instruction}
+                    </div>
+
+                    <!-- Multiple Choice Options -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                        ${q.options.map((opt, oIdx) => `
+                            <div>
+                                <input type="radio" id="q_${q.id}_${oIdx}" name="quiz_q${q.id}" value="${opt.label}" class="hidden quiz-opt">
+                                <label for="q_${q.id}_${oIdx}" class="cursor-pointer block">
+                                    <div class="quiz-opt-card rounded-2xl p-3 flex items-center space-x-3">
+                                        <span class="w-8 h-8 rounded-xl bg-slate-800 text-amber-300 font-heading font-extrabold text-xs flex items-center justify-center border border-slate-700 shrink-0">
+                                            ${opt.label}
+                                        </span>
+                                        <span class="text-xs sm:text-sm font-semibold text-slate-100">${opt.val}</span>
+                                    </div>
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                </div>
+            `).join('');
+
+            // Trigger MathJax re-render
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function goToStep(step) {
+            if (step === 2) {
+                const ic = document.getElementById('icNumber').value;
+                const phone = document.getElementById('noTel').value;
+                const email = document.getElementById('email').value;
+                if (!ic || !phone || !email) {
+                    showModal('Sila lengkapkan No. Kad Pengenalan, No. Telefon, dan Emel terlebih dahulu.');
+                    return;
+                }
+            } else if (step === 3) {
+                const q10 = document.getElementById('openQ10').value;
+                const q11 = document.getElementById('openQ11').value;
+                const q12 = document.getElementById('openQ12').value;
+                if (!q10 || !q11 || !q12) {
+                    showModal('Sila jawab kesemua 3 soalan Open-Ended di Bahagian B.');
+                    return;
+                }
+            }
+
+            document.getElementById('introInstructionBanner').classList.remove('hidden');
+            document.getElementById('wizardNavPills').classList.remove('hidden');
+
+            document.getElementById('sectionA').classList.add('hidden');
+            document.getElementById('sectionB').classList.add('hidden');
+            document.getElementById('sectionC').classList.add('hidden');
+
+            document.getElementById('stepTab1').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            document.getElementById('stepTab2').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            document.getElementById('stepTab3').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+
+            if (step === 1) {
+                document.getElementById('sectionA').classList.remove('hidden');
+                document.getElementById('stepTab1').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            } else if (step === 2) {
+                document.getElementById('sectionB').classList.remove('hidden');
+                document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                document.getElementById('stepTab2').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            } else if (step === 3) {
+                document.getElementById('sectionC').classList.remove('hidden');
+                document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                document.getElementById('stepTab2').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                document.getElementById('stepTab3').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startSectionC() {
+            goToStep(3);
+            if (!startTimeC) {
+                startTimeC = Date.now();
+                document.getElementById('liveTimerBadge').classList.remove('hidden');
+                timerInterval = setInterval(() => {
+                    elapsedSecondsC = Math.floor((Date.now() - startTimeC) / 1000);
+                    const mins = String(Math.floor(elapsedSecondsC / 60)).padStart(2, '0');
+                    const secs = String(elapsedSecondsC % 60).padStart(2, '0');
+                    document.getElementById('timerDisplay').innerText = `${mins}:${secs}`;
+                }, 1000);
+            }
+        }
+
+        async function submitForm() {
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            const submitBtnIcon = document.getElementById('submitBtnIcon');
+
+            // Stop Timer
+            clearInterval(timerInterval);
+
+            // Calculate Score
+            let score = 0;
+            const quizAnswers = {};
+
+            processedQuestions.forEach(q => {
+                const selected = document.querySelector(`input[name="quiz_q${q.id}"]:checked`);
+                const userAnsLabel = selected ? selected.value : null;
+                
+                // Find option corresponding to selected label
+                const selectedOpt = q.options.find(o => o.label === userAnsLabel);
+                const correctOpt = q.options.find(o => o.correct);
+                const isCorrect = selectedOpt ? selectedOpt.correct : false;
+
+                if (isCorrect) score++;
+                quizAnswers[`soalan_${q.id}`] = {
+                    pilihan_label_pengguna: userAnsLabel || 'Tidak Dijawab',
+                    nilai_pilihan_pengguna: selectedOpt ? selectedOpt.val : '-',
+                    nilai_betul: correctOpt ? correctOpt.val : '',
+                    betul: isCorrect
+                };
+            });
+
+            // Gather Likert Survey Answers
+            const surveyAnswers = {};
+            likertQuestions.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="likert_${idx}"]:checked`);
+                surveyAnswers[`skala_q${idx + 1}`] = selected ? parseInt(selected.value) : 3;
+            });
+
+            // Final Payload Data Structure
+            finalResponseData = {
+                borang: "Conquer Exam with Casio Scientific Calculator - Borang Penilaian",
+                tarikh_hantar: new Date().toISOString(),
+                maklumat_peserta: {
+                    no_ic: document.getElementById('icNumber').value,
+                    no_tel: document.getElementById('noTel').value,
+                    emel: document.getElementById('email').value
+                },
+                post_soal_selidik: {
+                    skala_likert: surveyAnswers,
+                    open_ended: {
+                        q10_fungsi_paling_berguna: document.getElementById('openQ10').value,
+                        q11_cabaran_penggunaan: document.getElementById('openQ11').value,
+                        q12_cadangan_penambahbaikan: document.getElementById('openQ12').value
+                    }
+                },
+                cabaran_matematik: {
+                    tempoh_masa_saat: elapsedSecondsC,
+                    tempoh_masa_format: document.getElementById('timerDisplay').innerText,
+                    skor: `${score} / 10`,
+                    jawapan: quizAnswers
+                }
+            };
+
+            // Loading state
+            submitBtn.disabled = true;
+            submitBtnText.innerText = "SEDANG MENGHANTAR DATA...";
+            submitBtnIcon.className = "fa-solid fa-spinner fa-spin";
+
+            // Send to Google Apps Script endpoint
+            if (GOOGLE_APPS_SCRIPT_URL) {
+                try {
+                    await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8'
+                        },
+                        body: JSON.stringify(finalResponseData)
+                    });
+                } catch (error) {
+                    showModal('Ralat penghantaran: ' + error.message, 'Ralat Penghantaran');
+                    submitBtn.disabled = false;
+                    submitBtnText.innerText = "SUBMIT FORM";
+                    submitBtnIcon.className = "fa-solid fa-paper-plane";
+                    return;
+                }
+            }
+
+            document.getElementById('sectionC').classList.add('hidden');
+            document.getElementById('liveTimerBadge').classList.add('hidden');
+            document.getElementById('introInstructionBanner').classList.add('hidden');
+            document.getElementById('wizardNavPills').classList.add('hidden');
+            document.getElementById('sectionResult').classList.remove('hidden');
+
+            // Set Performance Data
+            document.getElementById('finalScore').innerText = `${score} / 10`;
+            document.getElementById('finalTime').innerText = `${elapsedSecondsC} saat (${document.getElementById('timerDisplay').innerText})`;
+
+            // Set Individual Info
+            document.getElementById('finalIC').innerText = document.getElementById('icNumber').value || '-';
+            document.getElementById('finalPhone').innerText = document.getElementById('noTel').value || '-';
+            document.getElementById('finalEmail').innerText = document.getElementById('email').value || '-';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
