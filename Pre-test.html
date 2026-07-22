@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Fredoka (Playful 3D Titles) & Plus Jakarta Sans -->
+    <!-- Google Fonts: Fredoka & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -121,7 +121,6 @@
             box-shadow: 0 6px 14px rgba(51, 65, 85, 0.3), inset 0 2px 3px rgba(255, 255, 255, 0.4);
         }
 
-        /* 3D Likert Radio Styling */
         .radio-likert:checked + label {
             background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: white;
@@ -130,7 +129,6 @@
             transform: scale(1.05);
         }
 
-        /* 3D Quiz Options Styling */
         .quiz-opt-card {
             background: #1e293b;
             border: 2px solid #334155;
@@ -144,7 +142,6 @@
             transform: translateY(-2px);
         }
 
-        /* Floating 3D Background Objects Animation */
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-10px) rotate(4deg); }
@@ -631,6 +628,9 @@
         // Hardcoded Google Apps Script URL
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhQO-x6JUx3zQQKe3nUGWyGMxOPt8pKSyw59LPPQuTPxDb0Fdhskmm08SiFwVh2U32rg/exec";
 
+        // State Flags
+        let isShouldCloseOrRedirect = false;
+
         // Data Structures
         const likertQuestions = [
             "Saya yakin boleh menggunakan kalkulator saintifik untuk menyelesaikan soalan Matematik dengan betul",
@@ -791,19 +791,35 @@
         });
 
         // Show Custom Modal
-        function showModal(msg, title = "Peringatan") {
+        function showModal(msg, title = "Peringatan", shouldExit = false) {
+            isShouldCloseOrRedirect = shouldExit;
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalMessage').innerText = msg;
             document.getElementById('customModal').classList.remove('hidden');
         }
 
+        // Close Custom Modal & Handle Page Exit/Redirection
         function closeModal() {
             document.getElementById('customModal').classList.add('hidden');
+            
+            if (isShouldCloseOrRedirect) {
+                // Cuba tutup tetingkap browser
+                window.close();
+                
+                // Fallback jika browser menghalang window.close()
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 300);
+            }
         }
 
         // Fungsi Keluar / Selesai Kuiz
         function exitQuiz() {
-            showModal("Terima kasih! Sesi cabaran anda telah selesai sepenuhnya. Anda kini boleh menutup tetingkap pelayar ini.", "Tahniah & Selesai!");
+            showModal(
+                "Terima kasih! Sesi cabaran anda telah selesai sepenuhnya. Anda akan dikembalikan ke Laman Utama Portal.", 
+                "Tahniah & Selesai!", 
+                true
+            );
         }
 
         // Switch Demographics Logic
@@ -1038,6 +1054,9 @@
                     return;
                 }
             }
+
+            // Simpan status dalam localStorage bahawa Pre-Test telah selesai
+            localStorage.setItem('preTestDone', 'true');
 
             // Display Results Page
             document.getElementById('sectionC').classList.add('hidden');
