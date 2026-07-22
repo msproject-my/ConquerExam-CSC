@@ -629,7 +629,7 @@
             </div>
             <div class="inst-item">
                 <span class="inst-badge-politeknik"><i class="fa-solid fa-graduation-cap"></i> POLITEKNIK</span>
-                <span>Politeknik Port Dickson</span>
+                <span>Politeknik Malaysia Port Dickson</span>
             </div>
         </div>
 
@@ -1023,7 +1023,7 @@
     </div>
 
     <script>
-        // Default URLs
+        // Default URLs - Tukar nama fail .html atau pautan borang anda di sini:
         const DEFAULT_PRE_URL = "Pre-test.html";
         const DEFAULT_POST_URL = "Post-test.html";
 
@@ -1037,7 +1037,6 @@
             let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
 
             document.getElementById('btn-pre').href = preUrl;
-            document.getElementById('btn-post').href = postUrl;
 
             document.getElementById('input-pre-url').value = preUrl;
             document.getElementById('input-post-url').value = postUrl;
@@ -1057,6 +1056,7 @@
 
         function checkStatus() {
             const isDone = localStorage.getItem('preTestDone') === 'true';
+            let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
             
             const postCard = document.getElementById('card-post');
             const postBtn = document.getElementById('btn-post');
@@ -1072,6 +1072,8 @@
                 postIcon.className = "fa-solid fa-graduation-cap";
 
                 postBtn.className = "btn-action btn-post";
+                postBtn.href = postUrl;
+                postBtn.onclick = null; // Buka sekat klik
                 postBtnText.innerText = "Mula Post-Test";
                 postBtnIcon.className = "fa-solid fa-arrow-right";
 
@@ -1084,6 +1086,11 @@
                 postIcon.className = "fa-solid fa-lock";
 
                 postBtn.className = "btn-action btn-disabled";
+                postBtn.removeAttribute('href'); // Buang link jika belum tekan Pre-Test
+                postBtn.onclick = function(e) { 
+                    e.preventDefault(); 
+                    return false; 
+                };
                 postBtnText.innerText = "Selesaikan Pre-Test Dahulu";
                 postBtnIcon.className = "fa-solid fa-lock";
 
