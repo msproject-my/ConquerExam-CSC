@@ -899,7 +899,7 @@
         <div class="cards-grid">
             <!-- Kad 1: Pre-Test -->
             <div class="card card-pre" id="card-pre">
-                <span class="card-tag" id="pre-tag">Langkah 1 (Aktif)</span>
+                <span class="card-tag" id="pre-tag">Langkah 1 (Sila Jawab Dahulu)</span>
                 <div>
                     <div class="card-icon-circle" id="pre-icon-box">
                         <i class="fa-solid fa-file-pen" id="pre-icon"></i>
@@ -1007,15 +1007,23 @@
                 return false;
             }
 
-            // Tandakan Pre-Test sebagai telah ditekan
-            localStorage.setItem('preTestDone', 'true');
+            // Meminta pengesahan pengguna supaya tidak terkunci tanpa sengaja
+            const confirmAction = confirm("Anda akan membuka Pre-Test. Selesai menjawab nanti, status portal akan dikemaskini untuk membuka Post-Test. Teruskan?");
+            
+            if (confirmAction) {
+                // Tandakan Pre-Test sebagai telah ditekan/selesai
+                localStorage.setItem('preTestDone', 'true');
 
-            // Kemas kini paparan portal
-            setTimeout(function() {
-                checkStatus();
-            }, 300);
+                // Kemas kini paparan portal
+                setTimeout(function() {
+                    checkStatus();
+                }, 500);
 
-            return true;
+                return true;
+            } else {
+                e.preventDefault();
+                return false;
+            }
         }
 
         function handlePostClick(e) {
