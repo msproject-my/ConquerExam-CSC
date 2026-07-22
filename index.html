@@ -314,7 +314,7 @@
         .step-progress-bar {
             background: #e2e8f0;
             border-radius: 20px;
-            padding: 6px 14px;
+            padding: 8px 16px;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -330,6 +330,7 @@
             color: white;
             font-size: 11px;
             font-weight: 800;
+            background: #0284c7;
         }
 
         .cards-grid {
@@ -358,26 +359,18 @@
             border: 3px solid;
         }
 
-        /* Pre-Test active style */
+        /* Pre-Test Style */
         .card-pre {
             background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
             border-color: #0284c7;
             box-shadow: 0 8px 0 #0369a1, 0 10px 15px rgba(0,0,0,0.06);
         }
 
-        /* Post-Test active style */
+        /* Post-Test Style */
         .card-post {
             background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%);
             border-color: #10b981;
             box-shadow: 0 8px 0 #047857, 0 10px 15px rgba(0,0,0,0.06);
-        }
-
-        /* Style Disabled */
-        .card.disabled {
-            background: #f1f5f9 !important;
-            border-color: #cbd5e1 !important;
-            box-shadow: 0 8px 0 #94a3b8 !important;
-            opacity: 0.75;
         }
 
         .card-tag {
@@ -395,8 +388,7 @@
         }
 
         .tag-active-step { background: #0284c7; color: white; border: 1.5px solid white; }
-        .tag-done-step { background: #16a34a; color: white; border: 1.5px solid white; }
-        .tag-locked-step { background: #64748b; color: white; border: 1.5px solid white; }
+        .tag-post-step { background: #10b981; color: white; border: 1.5px solid white; }
 
         .card-icon-circle {
             width: 60px;
@@ -412,7 +404,6 @@
 
         .card-pre .card-icon-circle { background: #0284c7; color: white; }
         .card-post .card-icon-circle { background: #10b981; color: white; }
-        .card.disabled .card-icon-circle { background: #94a3b8 !important; color: white !important; }
 
         .card-title {
             font-family: 'Montserrat', sans-serif;
@@ -470,15 +461,6 @@
         .btn-post:hover {
             transform: translateY(-2px);
             box-shadow: 0 7px 0 #065f46;
-        }
-
-        .btn-disabled {
-            background: #94a3b8 !important;
-            box-shadow: 0 5px 0 #64748b !important;
-            cursor: not-allowed !important;
-            pointer-events: none;
-            border: 1.5px solid #cbd5e1;
-            color: #f1f5f9 !important;
         }
 
         .btn-action:active {
@@ -893,43 +875,43 @@
 
         <div class="step-progress-bar">
             <span><i class="fa-solid fa-list-ol" style="color: #0284c7; margin-right: 6px;"></i> Urutan Penilaian:</span>
-            <span class="step-badge" id="current-step-badge" style="background: #0284c7;">Langkah 1: Pre-Test</span>
+            <span class="step-badge">Langkah 1: Pre-Test &nbsp;➔&nbsp; Langkah 2: Post-Test</span>
         </div>
 
         <div class="cards-grid">
             <!-- Kad 1: Pre-Test -->
             <div class="card card-pre" id="card-pre">
-                <span class="card-tag" id="pre-tag">Langkah 1 (Sila Jawab Dahulu)</span>
+                <span class="card-tag tag-active-step">Langkah 1 (Jawab Dahulu)</span>
                 <div>
-                    <div class="card-icon-circle" id="pre-icon-box">
-                        <i class="fa-solid fa-file-pen" id="pre-icon"></i>
+                    <div class="card-icon-circle">
+                        <i class="fa-solid fa-file-pen"></i>
                     </div>
                     <div class="card-title">01. PRE-TEST</div>
                     <div class="card-desc">
                         Demografi, Pra-Soal Selidik & Soalan Cabaran Matematik Asas.
                     </div>
                 </div>
-                <a href="#" id="btn-pre" target="_blank" class="btn-action btn-pre" onclick="handlePreClick(event)">
-                    <span id="pre-btn-text">Mula Pre-Test</span>
-                    <i class="fa-solid fa-arrow-right" id="pre-btn-icon"></i>
+                <a href="#" id="btn-pre" target="_blank" class="btn-action btn-pre">
+                    <span>Mula Pre-Test</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
 
             <!-- Kad 2: Post-Test -->
-            <div class="card card-post disabled" id="card-post">
-                <span class="card-tag tag-locked-step" id="post-tag">Langkah 2 (Terkunci)</span>
+            <div class="card card-post" id="card-post">
+                <span class="card-tag tag-post-step">Langkah 2 (Selepas Bengkel)</span>
                 <div>
-                    <div class="card-icon-circle" id="post-icon-box">
-                        <i class="fa-solid fa-lock" id="post-icon"></i>
+                    <div class="card-icon-circle">
+                        <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <div class="card-title">02. POST-TEST</div>
                     <div class="card-desc">
                         Penilaian Selepas Bengkel, Post-Soal Selidik & Cabaran Akhir.
                     </div>
                 </div>
-                <a href="#" id="btn-post" class="btn-action btn-disabled" onclick="handlePostClick(event)">
-                    <span id="post-btn-text">Selesaikan Pre-Test Dahulu</span>
-                    <i class="fa-solid fa-lock" id="post-btn-icon"></i>
+                <a href="#" id="btn-post" target="_blank" class="btn-action btn-post" onclick="handlePostClick(event)">
+                    <span>Mula Post-Test</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
         </div>
@@ -937,7 +919,7 @@
         <div class="note-box">
             <div class="note-icon">!</div>
             <div class="note-text">
-                <strong>SYARAT UTAMA:</strong> Sila lengkapkan <strong>Pre-Test (Langkah 1)</strong> terlebih dahulu. Setelah Pre-Test dimulakan, sistem akan mengunci borang Pre-Test dan membukakan <strong>Post-Test (Langkah 2)</strong> secara automatik.
+                <strong>ARAHAN UTAMA:</strong> Sila lengkapkan borang <strong>Pre-Test (Langkah 1)</strong> sebelum bermulanya bengkel. Setelah selesai bengkel, sila jawab borang <strong>Post-Test (Langkah 2)</strong>.
             </div>
         </div>
 
@@ -948,10 +930,9 @@
         </div>
 
         <div class="admin-bar">
-            <span>Status: <strong id="status-label" style="color: #d97706;">Pre-Test Belum Ditekan</strong></span>
+            <span>Status Portal: <strong style="color: #16a34a;">Borang Dibuka Untuk Peserta</strong></span>
             <div>
                 <button class="admin-btn" onclick="openModal()"><i class="fa-solid fa-gear"></i> Tetap URL</button>
-                <button class="admin-btn" onclick="resetProgress()"><i class="fa-solid fa-rotate-left"></i> Reset Progress</button>
             </div>
         </div>
 
@@ -992,151 +973,24 @@
             let preUrl = localStorage.getItem('casio_pre_url') || DEFAULT_PRE_URL;
             let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
 
+            // Set pautan terus ke butang
+            document.getElementById('btn-pre').href = preUrl;
+            document.getElementById('btn-post').href = postUrl;
+
+            // Masukkan nilai ke dalam tetapan modal
             document.getElementById('input-pre-url').value = preUrl;
             document.getElementById('input-post-url').value = postUrl;
-
-            checkStatus();
-        }
-
-        function handlePreClick(e) {
-            let isDone = localStorage.getItem('preTestDone') === 'true';
-            
-            if (isDone) {
-                // Sekiranya sudah diselesaikan, kunci tindakan
-                e.preventDefault();
-                return false;
-            }
-
-            // Meminta pengesahan pengguna supaya tidak terkunci tanpa sengaja
-            const confirmAction = confirm("Anda akan membuka Pre-Test. Selesai menjawab nanti, status portal akan dikemaskini untuk membuka Post-Test. Teruskan?");
-            
-            if (confirmAction) {
-                // Tandakan Pre-Test sebagai telah ditekan/selesai
-                localStorage.setItem('preTestDone', 'true');
-
-                // Kemas kini paparan portal
-                setTimeout(function() {
-                    checkStatus();
-                }, 500);
-
-                return true;
-            } else {
-                e.preventDefault();
-                return false;
-            }
         }
 
         function handlePostClick(e) {
-            let isDone = localStorage.getItem('preTestDone') === 'true';
+            // Memberikan ingatan mesra apabila peserta menekan Post-Test
+            const confirmOpen = confirm("Peringatan: Pastikan anda telah melengkapkan Pre-Test (Langkah 1) sebelum menjawab Post-Test. Teruskan ke Post-Test?");
             
-            if (!isDone) {
+            if (!confirmOpen) {
                 e.preventDefault();
-                alert('Sila lengkapkan Pre-Test terlebih dahulu sebelum membuka Post-Test!');
                 return false;
             }
-
             return true;
-        }
-
-        function checkStatus() {
-            const isDone = localStorage.getItem('preTestDone') === 'true';
-            let preUrl = localStorage.getItem('casio_pre_url') || DEFAULT_PRE_URL;
-            let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
-            
-            const preCard = document.getElementById('card-pre');
-            const preBtn = document.getElementById('btn-pre');
-            const preIcon = document.getElementById('pre-icon');
-            const preTag = document.getElementById('pre-tag');
-            const preBtnText = document.getElementById('pre-btn-text');
-            const preBtnIcon = document.getElementById('pre-btn-icon');
-
-            const postCard = document.getElementById('card-post');
-            const postBtn = document.getElementById('btn-post');
-            const postIcon = document.getElementById('post-icon');
-            const postTag = document.getElementById('post-tag');
-            const postBtnText = document.getElementById('post-btn-text');
-            const postBtnIcon = document.getElementById('post-btn-icon');
-
-            const stepBadge = document.getElementById('current-step-badge');
-            const statusLabel = document.getElementById('status-label');
-
-            if (isDone) {
-                // ==========================================
-                // PRE-TEST SUDAH SELESAI -> LOCK PRE, UNLOCK POST
-                // ==========================================
-
-                // 1. KUNCI PRE-TEST
-                preCard.className = "card card-pre disabled";
-                preTag.className = "card-tag tag-done-step";
-                preTag.innerText = "Langkah 1 (Selesai ✓)";
-                preIcon.className = "fa-solid fa-circle-check";
-                
-                preBtn.className = "btn-action btn-disabled";
-                preBtn.href = "javascript:void(0)";
-                preBtn.removeAttribute('target');
-                preBtnText.innerText = "Pre-Test Selesai";
-                preBtnIcon.className = "fa-solid fa-lock";
-
-                // 2. BUKA POST-TEST
-                postCard.className = "card card-post";
-                postTag.className = "card-tag tag-active-step";
-                postTag.innerText = "Langkah 2 (Aktifkan Sekarang)";
-                postIcon.className = "fa-solid fa-graduation-cap";
-
-                postBtn.className = "btn-action btn-post";
-                postBtn.href = postUrl;
-                postBtn.target = "_blank";
-                postBtnText.innerText = "Mula Post-Test";
-                postBtnIcon.className = "fa-solid fa-arrow-right";
-
-                // Badges & Labels
-                stepBadge.innerText = "Langkah 2: Post-Test Dibuka";
-                stepBadge.style.background = "#10b981";
-
-                statusLabel.innerText = "Pre-Test Selesai → Post-Test Dibuka";
-                statusLabel.style.color = "#10b981";
-
-            } else {
-                // ==========================================
-                // PRE-TEST BELUM DIJAWAB -> UNLOCK PRE, LOCK POST
-                // ==========================================
-
-                // 1. BUKA PRE-TEST
-                preCard.className = "card card-pre";
-                preTag.className = "card-tag tag-active-step";
-                preTag.innerText = "Langkah 1 (Sila Jawab Dahulu)";
-                preIcon.className = "fa-solid fa-file-pen";
-
-                preBtn.className = "btn-action btn-pre";
-                preBtn.href = preUrl;
-                preBtn.target = "_blank";
-                preBtnText.innerText = "Mula Pre-Test";
-                preBtnIcon.className = "fa-solid fa-arrow-right";
-
-                // 2. KUNCI POST-TEST
-                postCard.className = "card card-post disabled";
-                postTag.className = "card-tag tag-locked-step";
-                postTag.innerText = "Langkah 2 (Terkunci)";
-                postIcon.className = "fa-solid fa-lock";
-
-                postBtn.className = "btn-action btn-disabled";
-                postBtn.href = "javascript:void(0)";
-                postBtn.removeAttribute('target');
-                postBtnText.innerText = "Selesaikan Pre-Test Dahulu";
-                postBtnIcon.className = "fa-solid fa-lock";
-
-                // Badges & Labels
-                stepBadge.innerText = "Langkah 1: Sila Jawab Pre-Test";
-                stepBadge.style.background = "#0284c7";
-
-                statusLabel.innerText = "Menunggu Pre-Test Lengkap";
-                statusLabel.style.color = "#d97706";
-            }
-        }
-
-        function resetProgress() {
-            localStorage.removeItem('preTestDone');
-            checkStatus();
         }
 
         function openModal() {
@@ -1156,6 +1010,7 @@
 
             initPortal();
             closeModal();
+            alert("Pautan URL berjaya disimpan!");
         }
     </script>
 </body>
