@@ -334,37 +334,11 @@
                             <input type="tel" id="noTel" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none" placeholder="Contoh: 0123456789" required>
                         </div>
                     </div>
-                </div>
 
-                <!-- SubSection 2: Pelajar Sekolah -->
-                <div id="subSection2" class="hidden bg-sky-50/50 border-2 border-sky-200 rounded-2xl p-4 sm:p-6 space-y-4">
-                    <h3 class="font-heading font-bold text-sky-900 text-sm border-b border-sky-200 pb-2">Maklumat Sekolah & Tingkatan</h3>
-                    
+                    <!-- Pindahan Jantina & Bangsa ke Maklumat Asas Peserta -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">5. Nama Sekolah <span class="text-red-500">*</span></label>
-                            <input type="text" id="namaSekolah" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white" placeholder="Nama Penuh Sekolah">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">6. Kod Sekolah <span class="text-red-500">*</span></label>
-                            <input type="text" id="kodSekolah" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white" placeholder="Contoh: BEA1234">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">7. Tingkatan <span class="text-red-500">*</span></label>
-                            <select id="tingkatan" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white font-semibold">
-                                <option value="">-- Pilih Tingkatan --</option>
-                                <option value="Tingkatan 1">Tingkatan 1</option>
-                                <option value="Tingkatan 2">Tingkatan 2</option>
-                                <option value="Tingkatan 3">Tingkatan 3</option>
-                                <option value="Tingkatan 4">Tingkatan 4</option>
-                                <option value="Tingkatan 5">Tingkatan 5</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">8. Jantina <span class="text-red-500">*</span></label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">5. Jantina <span class="text-red-500">*</span></label>
                             <select id="jantina" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white font-semibold">
                                 <option value="">-- Pilih Jantina --</option>
                                 <option value="Lelaki">Lelaki</option>
@@ -372,7 +346,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">9. Bangsa <span class="text-red-500">*</span></label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">6. Bangsa <span class="text-red-500">*</span></label>
                             <select id="bangsa" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white font-semibold">
                                 <option value="">-- Pilih Bangsa --</option>
                                 <option value="Melayu">Melayu</option>
@@ -384,11 +358,41 @@
                     </div>
                 </div>
 
+                <!-- SubSection 2: Pelajar Sekolah -->
+                <div id="subSection2" class="hidden bg-sky-50/50 border-2 border-sky-200 rounded-2xl p-4 sm:p-6 space-y-4">
+                    <h3 class="font-heading font-bold text-sky-900 text-sm border-b border-sky-200 pb-2">Maklumat Sekolah & Tingkatan</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">7. Nama Sekolah <span class="text-red-500">*</span></label>
+                            <input type="text" id="namaSekolah" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white" placeholder="Nama Penuh Sekolah">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">8. Kod Sekolah <span class="text-red-500">*</span></label>
+                            <input type="text" id="kodSekolah" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white" placeholder="Contoh: BEA1234">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">9. Tingkatan <span class="text-red-500">*</span></label>
+                            <select id="tingkatan" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white font-semibold">
+                                <option value="">-- Pilih Tingkatan --</option>
+                                <option value="Tingkatan 1">Tingkatan 1</option>
+                                <option value="Tingkatan 2">Tingkatan 2</option>
+                                <option value="Tingkatan 3">Tingkatan 3</option>
+                                <option value="Tingkatan 4">Tingkatan 4</option>
+                                <option value="Tingkatan 5">Tingkatan 5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- SubSection 3: Pelajar Politeknik / Kolej Komuniti -->
                 <div id="subSection3" class="hidden bg-emerald-50/50 border-2 border-emerald-200 rounded-2xl p-4 sm:p-6 space-y-4">
                     <h3 class="font-heading font-bold text-emerald-900 text-sm border-b border-emerald-200 pb-2">Maklumat Institusi Pengajian Tinggi</h3>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">5. Nama Institusi <span class="text-red-500">*</span></label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">7. Nama Institusi <span class="text-red-500">*</span></label>
                         <input type="text" id="namaInstitusiPoly" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-emerald-500 focus:outline-none bg-white" placeholder="Contoh: Politeknik Port Dickson / Kolej Komuniti">
                     </div>
                 </div>
@@ -398,11 +402,11 @@
                     <h3 class="font-heading font-bold text-purple-900 text-sm border-b border-purple-200 pb-2">Maklumat Guru / Pensyarah</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">5. Nama Institusi / Sekolah <span class="text-red-500">*</span></label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">7. Nama Institusi / Sekolah <span class="text-red-500">*</span></label>
                             <input type="text" id="namaInstitusiGuru" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-purple-500 focus:outline-none bg-white" placeholder="Nama Sekolah / Politeknik / Kolej">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">6. Jawatan <span class="text-red-500">*</span></label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">8. Jawatan <span class="text-red-500">*</span></label>
                             <input type="text" id="jawatan" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-purple-500 focus:outline-none bg-white" placeholder="Contoh: Guru Cemerlang Matematik / Pensyarah">
                         </div>
                     </div>
@@ -555,6 +559,11 @@
                             <span id="finalPhone" class="font-bold text-slate-800">-</span>
                         </div>
 
+                        <div class="flex justify-between items-center border-b pb-2 text-xs sm:text-sm">
+                            <span class="font-bold text-slate-500 uppercase">Jantina / Bangsa</span>
+                            <span id="finalGenderRace" class="font-bold text-slate-800">-</span>
+                        </div>
+
                         <!-- Dynamic fields depending on selected Category -->
                         <div id="finalDynamicDetails" class="space-y-2.5 pt-0.5">
                             <!-- Dynamic rendering via JS -->
@@ -633,7 +642,7 @@
         // Data Structures
         const likertQuestions = [
             "Saya yakin boleh menggunakan kalkulator saintifik untuk menyelesaikan soalan Matematik dengan betul",
-            "Saya rasa kalkulator dapat membantu saya menjimatkan masa semasa menjawab soalan exam",
+            "Saya rasa kalkulator dapat membantu saya menjimatkan masa semasa menjawab soalan peperikaan",
             "Saya tahu cara menggunakan fungsi operasi aritmetik (tambah, tolak, pecahan, dan punca kuasa) dalam menyelesaikan masalah asas matematik",
             "Saya tahu cara menggunakan fungsi SOLVER untuk selesaikan masalah algebra dan index",
             "Saya tahu cara menggunakan fungsi EQUATION untuk selesaikan persamaan",
@@ -802,10 +811,7 @@
             document.getElementById('customModal').classList.add('hidden');
             
             if (isShouldCloseOrRedirect) {
-                // Cuba tutup tetingkap browser
                 window.close();
-                
-                // Fallback jika browser menghalang window.close()
                 setTimeout(() => {
                     window.location.href = "index.html";
                 }, 300);
@@ -902,7 +908,6 @@
                 </div>
             `).join('');
 
-            // Trigger MathJax re-render
             if (window.MathJax && MathJax.typesetPromise) {
                 MathJax.typesetPromise();
             }
@@ -917,8 +922,11 @@
                 }
                 const name = document.getElementById('namaPenuh').value;
                 const ic = document.getElementById('icNumber').value;
-                if (!name || !ic) {
-                    showModal('Sila isi Nama Penuh dan No. Kad Pengenalan.');
+                const jantina = document.getElementById('jantina').value;
+                const bangsa = document.getElementById('bangsa').value;
+
+                if (!name || !ic || !jantina || !bangsa) {
+                    showModal('Sila lengkapkan Maklumat Asas Peserta (Nama, No. IC, Jantina, dan Bangsa).');
                     return;
                 }
             }
@@ -970,10 +978,8 @@
 
             const targetUrl = GOOGLE_APPS_SCRIPT_URL;
 
-            // Stop Timer
             clearInterval(timerInterval);
 
-            // Calculate Score
             let score = 0;
             const quizAnswers = {};
 
@@ -991,14 +997,12 @@
                 };
             });
 
-            // Gather Survey Answers
             const surveyAnswers = {};
             likertQuestions.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="likert_${idx}"]:checked`);
                 surveyAnswers[`skala_q${idx + 1}`] = selected ? parseInt(selected.value) : 3;
             });
 
-            // Final Payload Data Structure
             finalResponseData = {
                 borang: "Conquer Exam with Casio Scientific Calculator",
                 tarikh_hantar: new Date().toISOString(),
@@ -1008,12 +1012,12 @@
                     no_ic: document.getElementById('icNumber').value,
                     emel: document.getElementById('email').value,
                     no_tel: document.getElementById('noTel').value,
+                    jantina: document.getElementById('jantina').value,
+                    bangsa: document.getElementById('bangsa').value,
                     detail_sekolah: currentCategory === 'sekolah' ? {
                         nama_sekolah: document.getElementById('namaSekolah').value,
                         kod_sekolah: document.getElementById('kodSekolah').value,
-                        tingkatan: document.getElementById('tingkatan').value,
-                        jantina: document.getElementById('jantina').value,
-                        bangsa: document.getElementById('bangsa').value
+                        tingkatan: document.getElementById('tingkatan').value
                     } : null,
                     detail_institusi: (currentCategory === 'politeknik' || currentCategory === 'lain') ? {
                         nama_institusi: currentCategory === 'politeknik' ? document.getElementById('namaInstitusiPoly').value : document.getElementById('namaInstitusiGuru').value,
@@ -1029,12 +1033,10 @@
                 }
             };
 
-            // Loading state
             submitBtn.disabled = true;
             submitBtnText.innerText = "SEDANG MENGHANTAR DATA...";
             submitBtnIcon.className = "fa-solid fa-spinner fa-spin";
 
-            // Submit via fetch POST mode no-cors
             if (targetUrl) {
                 try {
                     await fetch(targetUrl, {
@@ -1054,19 +1056,15 @@
                 }
             }
 
-            // Simpan status dalam localStorage bahawa Pre-Test telah selesai
             localStorage.setItem('preTestDone', 'true');
 
-            // Display Results Page
             document.getElementById('sectionC').classList.add('hidden');
             document.getElementById('liveTimerBadge').classList.add('hidden');
             document.getElementById('sectionResult').classList.remove('hidden');
 
-            // Set Prestasi
             document.getElementById('finalScore').innerText = `${score} / 10`;
             document.getElementById('finalTime').innerText = `${elapsedSecondsC} saat (${document.getElementById('timerDisplay').innerText})`;
             
-            // Set Demografi Asas
             let catLabel = '';
             if (currentCategory === 'sekolah') catLabel = 'PELAJAR SEKOLAH';
             else if (currentCategory === 'politeknik') catLabel = 'PELAJAR POLITEKNIK / KOLEJ KOMUNITI';
@@ -1077,8 +1075,8 @@
             document.getElementById('finalIC').innerText = document.getElementById('icNumber').value || '-';
             document.getElementById('finalEmail').innerText = document.getElementById('email').value || '-';
             document.getElementById('finalPhone').innerText = document.getElementById('noTel').value || '-';
+            document.getElementById('finalGenderRace').innerText = `${document.getElementById('jantina').value || '-'} | ${document.getElementById('bangsa').value || '-'}`;
 
-            // Set Demografi Khusus
             const dynamicDetailsContainer = document.getElementById('finalDynamicDetails');
             dynamicDetailsContainer.innerHTML = '';
 
@@ -1093,8 +1091,8 @@
                         <span class="font-bold text-slate-800">${document.getElementById('kodSekolah').value || '-'}</span>
                     </div>
                     <div class="flex justify-between items-center text-xs sm:text-sm">
-                        <span class="font-bold text-slate-500 uppercase">Tingkatan / Jantina / Bangsa</span>
-                        <span class="font-bold text-slate-800">${document.getElementById('tingkatan').value || '-'} | ${document.getElementById('jantina').value || '-'} | ${document.getElementById('bangsa').value || '-'}</span>
+                        <span class="font-bold text-slate-500 uppercase">Tingkatan</span>
+                        <span class="font-bold text-slate-800">${document.getElementById('tingkatan').value || '-'}</span>
                     </div>
                 `;
             } else if (currentCategory === 'politeknik') {
