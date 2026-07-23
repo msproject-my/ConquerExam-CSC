@@ -335,7 +335,6 @@
                         </div>
                     </div>
 
-                    <!-- Pindahan Jantina & Bangsa ke Maklumat Asas Peserta -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">5. Jantina <span class="text-red-500">*</span></label>
@@ -844,7 +843,7 @@
             }
         }
 
-        // Render Section B Questions
+        // Render Section B Questions (DEFAULT KOSONG TANPA SEBARANG CHOICE SELECTED)
         function renderLikertQuestions() {
             const container = document.getElementById('likertQuestionsContainer');
             container.innerHTML = likertQuestions.map((q, idx) => `
@@ -859,7 +858,7 @@
                     <div class="grid grid-cols-5 gap-1.5 text-center w-full sm:w-auto shrink-0">
                         ${[1, 2, 3, 4, 5].map(num => `
                             <div>
-                                <input type="radio" id="b_${idx}_${num}" name="likert_${idx}" value="${num}" class="hidden radio-likert" ${num === 3 ? 'checked' : ''}>
+                                <input type="radio" id="b_${idx}_${num}" name="likert_${idx}" value="${num}" class="hidden radio-likert">
                                 <label for="b_${idx}_${num}" class="block border-2 border-slate-200 rounded-xl py-1.5 px-3 cursor-pointer text-xs font-bold transition hover:border-sky-400 bg-slate-50">
                                     ${num}
                                 </label>
@@ -883,7 +882,7 @@
                         </span>
                     </div>
 
-                    <!-- Kad Khas Soalan (Berada Tepat Di Bawah Tajuk Soalan) -->
+                    <!-- Kad Khas Soalan -->
                     <div class="bg-slate-900 border-2 border-slate-800 rounded-2xl p-4 sm:p-5 text-center space-y-3 shadow-inner">
                         <div class="inline-block">
                             <span class="text-[10px] sm:text-xs font-bold bg-slate-800 text-sky-300 px-3 py-1 rounded-full border border-slate-700 tracking-wider">
@@ -918,52 +917,58 @@
             }
         }
 
-        // Navigation Step Wizard (DIKEMASKINI DENGAN SEMAKAN KETAT SEMUA RUANGAN WAJIB)
+        // Semakan kelengkapan Bahagian A
+        function isSectionAComplete() {
+            if (!currentCategory) return false;
+            const name = document.getElementById('namaPenuh').value.trim();
+            const ic = document.getElementById('icNumber').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const noTel = document.getElementById('noTel').value.trim();
+            const jantina = document.getElementById('jantina').value;
+            const bangsa = document.getElementById('bangsa').value;
+
+            if (!name || !ic || !email || !noTel || !jantina || !bangsa) return false;
+
+            if (currentCategory === 'sekolah') {
+                const namaSekolah = document.getElementById('namaSekolah').value.trim();
+                const kodSekolah = document.getElementById('kodSekolah').value.trim();
+                const tingkatan = document.getElementById('tingkatan').value;
+                if (!namaSekolah || !kodSekolah || !tingkatan) return false;
+            } else if (currentCategory === 'politeknik') {
+                const namaInstitusiPoly = document.getElementById('namaInstitusiPoly').value.trim();
+                if (!namaInstitusiPoly) return false;
+            } else if (currentCategory === 'lain') {
+                const namaInstitusiGuru = document.getElementById('namaInstitusiGuru').value.trim();
+                const jawatan = document.getElementById('jawatan').value.trim();
+                if (!namaInstitusiGuru || !jawatan) return false;
+            }
+            return true;
+        }
+
+        // Semakan kelengkapan Bahagian B
+        function isSectionBComplete() {
+            for (let idx = 0; idx < likertQuestions.length; idx++) {
+                const selected = document.querySelector(`input[name="likert_${idx}"]:checked`);
+                if (!selected) return false;
+            }
+            return true;
+        }
+
+        // Navigation Step Wizard (DIKEMASKINI: PENUNJUK WARNA TUKAR IKUT STATUS SELESAI)
         function goToStep(step) {
             if (step === 2 || step === 3) {
-                // 1. Semak Kategori
-                if (!currentCategory) {
-                    showModal('Sila pilih Kategori anda terlebih dahulu.');
+                // Semak Bahagian A jika mahu ke Step 2 atau Step 3
+                if (!isSectionAComplete()) {
+                    showModal('Sila lengkapkan SEMUA maklumat dalam Bahagian A terlebih dahulu.');
                     return;
                 }
+            }
 
-                // 2. Semak Maklumat Asas Peserta
-                const name = document.getElementById('namaPenuh').value.trim();
-                const ic = document.getElementById('icNumber').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const noTel = document.getElementById('noTel').value.trim();
-                const jantina = document.getElementById('jantina').value;
-                const bangsa = document.getElementById('bangsa').value;
-
-                if (!name || !ic || !email || !noTel || !jantina || !bangsa) {
-                    showModal('Sila lengkapkan SEMUA Maklumat Asas Peserta (Nama, No. IC, Emel, No. Tel, Jantina, & Bangsa).');
+            if (step === 3) {
+                // Semak Bahagian B jika mahu ke Step 3
+                if (!isSectionBComplete()) {
+                    showModal('Sila jawab semua soalan dalam Bahagian B terlebih dahulu.');
                     return;
-                }
-
-                // 3. Semak Maklumat Khusus mengikut Kategori
-                if (currentCategory === 'sekolah') {
-                    const namaSekolah = document.getElementById('namaSekolah').value.trim();
-                    const kodSekolah = document.getElementById('kodSekolah').value.trim();
-                    const tingkatan = document.getElementById('tingkatan').value;
-
-                    if (!namaSekolah || !kodSekolah || !tingkatan) {
-                        showModal('Sila lengkapkan SEMUA Maklumat Sekolah & Tingkatan (Nama Sekolah, Kod Sekolah, dan Tingkatan).');
-                        return;
-                    }
-                } else if (currentCategory === 'politeknik') {
-                    const namaInstitusiPoly = document.getElementById('namaInstitusiPoly').value.trim();
-                    if (!namaInstitusiPoly) {
-                        showModal('Sila isi Nama Institusi anda.');
-                        return;
-                    }
-                } else if (currentCategory === 'lain') {
-                    const namaInstitusiGuru = document.getElementById('namaInstitusiGuru').value.trim();
-                    const jawatan = document.getElementById('jawatan').value.trim();
-
-                    if (!namaInstitusiGuru || !jawatan) {
-                        showModal('Sila lengkapkan Nama Institusi/Sekolah dan Jawatan anda.');
-                        return;
-                    }
                 }
             }
 
@@ -971,28 +976,37 @@
             document.getElementById('sectionB').classList.add('hidden');
             document.getElementById('sectionC').classList.add('hidden');
 
-            document.getElementById('stepTab1').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-            document.getElementById('stepTab2').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-            document.getElementById('stepTab3').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            const tab1 = document.getElementById('stepTab1');
+            const tab2 = document.getElementById('stepTab2');
+            const tab3 = document.getElementById('stepTab3');
 
+            // Kemaskini warna penunjuk bergantung pada bahagian aktif dan status lengkap
             if (step === 1) {
                 document.getElementById('sectionA').classList.remove('hidden');
-                document.getElementById('stepTab1').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab1.className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab2.className = isSectionBComplete() ? 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer' : 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab3.className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
             } else if (step === 2) {
                 document.getElementById('sectionB').classList.remove('hidden');
-                document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-                document.getElementById('stepTab2').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab1.className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab2.className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab3.className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
             } else if (step === 3) {
                 document.getElementById('sectionC').classList.remove('hidden');
-                document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-                document.getElementById('stepTab2').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-                document.getElementById('stepTab3').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab1.className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab2.className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab3.className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Start Section C Timer
         function startSectionC() {
+            if (!isSectionBComplete()) {
+                showModal('Sila jawab semua soalan dalam Bahagian B sebelum memulakan soalan cabaran.');
+                return;
+            }
+
             goToStep(3);
             if (!startTimeC) {
                 startTimeC = Date.now();
@@ -1036,7 +1050,7 @@
             const surveyAnswers = {};
             likertQuestions.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="likert_${idx}"]:checked`);
-                surveyAnswers[`skala_q${idx + 1}`] = selected ? parseInt(selected.value) : 3;
+                surveyAnswers[`skala_q${idx + 1}`] = selected ? parseInt(selected.value) : null;
             });
 
             finalResponseData = {
@@ -1097,6 +1111,11 @@
             document.getElementById('sectionC').classList.add('hidden');
             document.getElementById('liveTimerBadge').classList.add('hidden');
             document.getElementById('sectionResult').classList.remove('hidden');
+
+            // KEMASKINI: Tukar ketiga-tiga indicator navigasi kepada HIJAU (Selesai sepenuhnya)
+            document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            document.getElementById('stepTab2').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            document.getElementById('stepTab3').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
 
             document.getElementById('finalScore').innerText = `${score} / 10`;
             document.getElementById('finalTime').innerText = `${elapsedSecondsC} saat (${document.getElementById('timerDisplay').innerText})`;
