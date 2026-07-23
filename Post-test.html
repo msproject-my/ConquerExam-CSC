@@ -518,7 +518,7 @@
         // Likert Questions list (Post-Survey)
         const likertQuestions = [
             "Saya yakin boleh menggunakan kalkulator saintifik untuk menyelesaikan soalan Matematik dengan betul",
-            "Saya rasa kalkulator dapat membantu saya menjimatkan masa semasa menjawab soalan exam",
+            "Saya rasa kalkulator dapat membantu saya menjimatkan masa semasa menjawab soalan peperiksaan",
             "Saya tahu cara menggunakan fungsi operasi aritmetik (tambah, tolak, pecahan, dan punca kuasa) dalam menyelesaikan masalah asas matematik",
             "Saya tahu cara menggunakan fungsi SOLVER untuk selesaikan masalah algebra dan index",
             "Saya tahu cara menggunakan fungsi EQUATION untuk selesaikan persamaan",
@@ -528,6 +528,7 @@
             "Penceramah menyampaikan maklumat dengan jelas"
         ];
 
+        // Soalan Asal (10 Soalan)
         const rawMathQuizQuestions = [
             {
                 id: 1,
@@ -597,8 +598,8 @@
             },
             {
                 id: 7,
-                instruction: "ADAKAH 2053 ADALAH NOMBOR PERDANA?",
-                expression: "",
+                instruction: "TEORI NOMBOR",
+                expression: "ADAKAH 2053 ADALAH NOMBOR PERDANA?",
                 rawOptions: [
                     { val: "Ya", correct: true },
                     { val: "Tidak", correct: false }
@@ -606,13 +607,13 @@
             },
             {
                 id: 8,
-                instruction: "APAKAH PEMFAKTORAN PERDANA BAGI 369?",
-                expression: "",
+                instruction: "PEMFAKTORAN PERDANA",
+                expression: "APAKAH PEMFAKTORAN PERDANA BAGI 369?",
                 rawOptions: [
-                    { val: "$3 \\times 3 \\times 41$", correct: true },
-                    { val: "$3 \\times 9 \\times 41$", correct: false },
-                    { val: "$9 \\times 41$", correct: false },
-                    { val: "$3 \\times 123$", correct: false }
+                    { val: "5.65", correct: false },
+                    { val: "0.328", correct: false },
+                    { val: "3 x 3 x 41", correct: true },
+                    { val: "$\\frac{1}{125}$", correct: false }
                 ]
             },
             {
@@ -651,7 +652,7 @@
             },
             {
                 id: 10,
-                instruction: "NYATAKAN TITIK MINIMUM BAGI PERSAMAAN KUADRATIK BERIKUT",
+                instruction: "NYATAKAN TITIK MINIMUN BAGI PERSAMAAN KUADRATIK BERIKUT",
                 expression: "$$y = (x - 4)^2 + 7$$",
                 rawOptions: [
                     { val: "(5, 7)", correct: false },
@@ -684,16 +685,22 @@
             renderQuizQuestions();
         });
 
-        // Prepare Questions with Shuffled Option Positions
+        // Shuffle Soalan & Shuffle Pilihan Jawapan
         function prepareShuffledQuizQuestions() {
             const optionLabels = ["A", "B", "C", "D"];
-            processedQuestions = rawMathQuizQuestions.map(q => {
+            
+            // 1. Shuffle Kedudukan Soalan
+            const shuffledQuestions = shuffleArray(rawMathQuizQuestions);
+
+            // 2. Shuffle Kedudukan Jawapan Bagi Setiap Soalan
+            processedQuestions = shuffledQuestions.map((q) => {
                 const shuffledOpts = shuffleArray(q.rawOptions);
                 const optionsWithLabels = shuffledOpts.map((opt, idx) => ({
                     label: optionLabels[idx] || String.fromCharCode(65 + idx),
                     val: opt.val,
                     correct: opt.correct
                 }));
+
                 return {
                     id: q.id,
                     instruction: q.instruction,
@@ -716,10 +723,7 @@
             document.getElementById('customModal').classList.add('hidden');
             
             if (isShouldCloseOrRedirect) {
-                // Cuba tutup tetingkap browser secara terus
                 window.close();
-                
-                // Fallback sekiranya browser menyekat window.close()
                 setTimeout(() => {
                     window.location.href = "index.html";
                 }, 300);
@@ -760,28 +764,30 @@
             `).join('');
         }
 
+        // Render Section C Quiz Questions (Format Sama Seperti Pre-Test)
         function renderQuizQuestions() {
             const container = document.getElementById('quizContainer');
-            container.innerHTML = processedQuestions.map((q) => `
+            container.innerHTML = processedQuestions.map((q, displayIdx) => `
                 <div class="bg-slate-950 text-white rounded-3xl p-5 sm:p-6 shadow-xl border-4 border-slate-800 space-y-4">
                     
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-                        <div class="flex items-center space-x-2">
-                            <span class="bg-amber-400 text-amber-950 font-heading font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
-                                SOALAN ${q.id}
-                            </span>
-                        </div>
-                        <span class="text-[10px] sm:text-xs font-bold bg-slate-800 text-sky-300 px-3 py-1 rounded-full border border-slate-700">
-                            ${q.expression ? q.instruction : 'SOALAN CABARAN'}
+                    <!-- Header Badge Soalan -->
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <span class="bg-amber-400 text-amber-950 font-heading font-extrabold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider shadow-md">
+                            SOALAN ${displayIdx + 1}
                         </span>
                     </div>
 
-                    <!-- Question Expression -->
-                    <div class="text-base sm:text-xl font-bold text-center py-3 text-sky-100 min-h-[3.5rem] flex items-center justify-center">
-                        ${q.expression ? q.expression : q.instruction}
+                    <!-- Kad Khas Soalan (Berada Tepat Di Bawah Tajuk Soalan) -->
+                    <div class="bg-slate-900 border-2 border-slate-800 rounded-2xl p-4 sm:p-5 text-center space-y-3 shadow-inner">
+                        <div class="inline-block">
+                            <span class="text-[10px] sm:text-xs font-bold bg-slate-800 text-sky-300 px-3 py-1 rounded-full border border-slate-700 tracking-wider">
+                                ${q.instruction}
+                            </span>
+                        </div>
+                        ${q.expression ? `<div class="text-lg sm:text-2xl font-bold text-sky-100 uppercase tracking-wide leading-relaxed pt-1">${q.expression}</div>` : ''}
                     </div>
 
-                    <!-- Multiple Choice Options -->
+                    <!-- Pilihan Jawapan A, B, C, D -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                         ${q.options.map((opt, oIdx) => `
                             <div>
@@ -809,17 +815,17 @@
 
         function goToStep(step) {
             if (step === 2) {
-                const ic = document.getElementById('icNumber').value;
-                const phone = document.getElementById('noTel').value;
-                const email = document.getElementById('email').value;
+                const ic = document.getElementById('icNumber').value.trim();
+                const phone = document.getElementById('noTel').value.trim();
+                const email = document.getElementById('email').value.trim();
                 if (!ic || !phone || !email) {
                     showModal('Sila lengkapkan No. Kad Pengenalan, No. Telefon, dan Emel terlebih dahulu.');
                     return;
                 }
             } else if (step === 3) {
-                const q10 = document.getElementById('openQ10').value;
-                const q11 = document.getElementById('openQ11').value;
-                const q12 = document.getElementById('openQ12').value;
+                const q10 = document.getElementById('openQ10').value.trim();
+                const q11 = document.getElementById('openQ11').value.trim();
+                const q12 = document.getElementById('openQ12').value.trim();
                 if (!q10 || !q11 || !q12) {
                     showModal('Sila jawab kesemua 3 soalan Open-Ended di Bahagian B.');
                     return;
