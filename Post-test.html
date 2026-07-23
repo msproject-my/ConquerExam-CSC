@@ -739,6 +739,7 @@
             );
         }
 
+        // Render Likert Questions (DIKEMASKINI: DEFAULT KOSONG / TIADA SELECTED)
         function renderLikertQuestions() {
             const container = document.getElementById('likertQuestionsContainer');
             container.innerHTML = likertQuestions.map((q, idx) => `
@@ -753,7 +754,7 @@
                     <div class="grid grid-cols-5 gap-1.5 text-center w-full sm:w-auto shrink-0">
                         ${[1, 2, 3, 4, 5].map(num => `
                             <div>
-                                <input type="radio" id="b_${idx}_${num}" name="likert_${idx}" value="${num}" class="hidden radio-likert" ${num === 3 ? 'checked' : ''}>
+                                <input type="radio" id="b_${idx}_${num}" name="likert_${idx}" value="${num}" class="hidden radio-likert">
                                 <label for="b_${idx}_${num}" class="block border-2 border-slate-200 rounded-xl py-1.5 px-3 cursor-pointer text-xs font-bold transition hover:border-sky-400 bg-slate-50">
                                     ${num}
                                 </label>
@@ -764,7 +765,7 @@
             `).join('');
         }
 
-        // Render Section C Quiz Questions (Format Sama Seperti Pre-Test)
+        // Render Section C Quiz Questions
         function renderQuizQuestions() {
             const container = document.getElementById('quizContainer');
             container.innerHTML = processedQuestions.map((q, displayIdx) => `
@@ -777,7 +778,7 @@
                         </span>
                     </div>
 
-                    <!-- Kad Khas Soalan (Berada Tepat Di Bawah Tajuk Soalan) -->
+                    <!-- Kad Khas Soalan -->
                     <div class="bg-slate-900 border-2 border-slate-800 rounded-2xl p-4 sm:p-5 text-center space-y-3 shadow-inner">
                         <div class="inline-block">
                             <span class="text-[10px] sm:text-xs font-bold bg-slate-800 text-sky-300 px-3 py-1 rounded-full border border-slate-700 tracking-wider">
@@ -813,21 +814,41 @@
             }
         }
 
+        // Semak kelengkapan Bahagian A
+        function isSectionAComplete() {
+            const ic = document.getElementById('icNumber').value.trim();
+            const phone = document.getElementById('noTel').value.trim();
+            const email = document.getElementById('email').value.trim();
+            return !!(ic && phone && email);
+        }
+
+        // Semak kelengkapan Bahagian B (Semua 9 Likert + 3 Open-Ended wajib diisi)
+        function isSectionBComplete() {
+            // Semak Likert
+            for (let idx = 0; idx < likertQuestions.length; idx++) {
+                const selected = document.querySelector(`input[name="likert_${idx}"]:checked`);
+                if (!selected) return false;
+            }
+            // Semak Open-Ended
+            const q10 = document.getElementById('openQ10').value.trim();
+            const q11 = document.getElementById('openQ11').value.trim();
+            const q12 = document.getElementById('openQ12').value.trim();
+            if (!q10 || !q11 || !q12) return false;
+
+            return true;
+        }
+
+        // Navigation Step Wizard (DIKEMASKINI: PENUNJUK WARNA TUKAR AUTOMATIK SESUAI DENGAN KELENGKAPAN)
         function goToStep(step) {
-            if (step === 2) {
-                const ic = document.getElementById('icNumber').value.trim();
-                const phone = document.getElementById('noTel').value.trim();
-                const email = document.getElementById('email').value.trim();
-                if (!ic || !phone || !email) {
+            if (step === 2 || step === 3) {
+                if (!isSectionAComplete()) {
                     showModal('Sila lengkapkan No. Kad Pengenalan, No. Telefon, dan Emel terlebih dahulu.');
                     return;
                 }
-            } else if (step === 3) {
-                const q10 = document.getElementById('openQ10').value.trim();
-                const q11 = document.getElementById('openQ11').value.trim();
-                const q12 = document.getElementById('openQ12').value.trim();
-                if (!q10 || !q11 || !q12) {
-                    showModal('Sila jawab kesemua 3 soalan Open-Ended di Bahagian B.');
+            }
+            if (step === 3) {
+                if (!isSectionBComplete()) {
+                    showModal('Sila jawab kesemua soalan Skala Likert dan 3 soalan Open-Ended di Bahagian B.');
                     return;
                 }
             }
@@ -839,27 +860,35 @@
             document.getElementById('sectionB').classList.add('hidden');
             document.getElementById('sectionC').classList.add('hidden');
 
-            document.getElementById('stepTab1').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-            document.getElementById('stepTab2').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-            document.getElementById('stepTab3').className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            const tab1 = document.getElementById('stepTab1');
+            const tab2 = document.getElementById('stepTab2');
+            const tab3 = document.getElementById('stepTab3');
 
             if (step === 1) {
                 document.getElementById('sectionA').classList.remove('hidden');
-                document.getElementById('stepTab1').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab1.className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab2.className = isSectionBComplete() ? 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer' : 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab3.className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
             } else if (step === 2) {
                 document.getElementById('sectionB').classList.remove('hidden');
-                document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-                document.getElementById('stepTab2').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab1.className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab2.className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab3.className = 'step-pill-inactive flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
             } else if (step === 3) {
                 document.getElementById('sectionC').classList.remove('hidden');
-                document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-                document.getElementById('stepTab2').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
-                document.getElementById('stepTab3').className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab1.className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab2.className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+                tab3.className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function startSectionC() {
+            if (!isSectionBComplete()) {
+                showModal('Sila jawab kesemua soalan Skala Likert dan 3 soalan Open-Ended di Bahagian B terlebih dahulu.');
+                return;
+            }
+
             goToStep(3);
             if (!startTimeC) {
                 startTimeC = Date.now();
@@ -889,7 +918,6 @@
                 const selected = document.querySelector(`input[name="quiz_q${q.id}"]:checked`);
                 const userAnsLabel = selected ? selected.value : null;
                 
-                // Find option corresponding to selected label
                 const selectedOpt = q.options.find(o => o.label === userAnsLabel);
                 const correctOpt = q.options.find(o => o.correct);
                 const isCorrect = selectedOpt ? selectedOpt.correct : false;
@@ -903,11 +931,11 @@
                 };
             });
 
-            // Gather Likert Survey Answers
+            // Gather Likert Survey Answers (DIKEMASKINI: TANPA FALLBACK '3')
             const surveyAnswers = {};
             likertQuestions.forEach((q, idx) => {
                 const selected = document.querySelector(`input[name="likert_${idx}"]:checked`);
-                surveyAnswers[`skala_q${idx + 1}`] = selected ? parseInt(selected.value) : 3;
+                surveyAnswers[`skala_q${idx + 1}`] = selected ? parseInt(selected.value) : null;
             });
 
             // Final Payload Data Structure
@@ -965,6 +993,11 @@
             document.getElementById('introInstructionBanner').classList.add('hidden');
             document.getElementById('wizardNavPills').classList.add('hidden');
             document.getElementById('sectionResult').classList.remove('hidden');
+
+            // KEMASKINI: Tukar ketiga-tiga indicator navigasi kepada HIJAU apabila borang selesai dihantar
+            document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            document.getElementById('stepTab2').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
+            document.getElementById('stepTab3').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
 
             // Set Performance Data
             document.getElementById('finalScore').innerText = `${score} / 10`;
