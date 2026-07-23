@@ -339,7 +339,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">5. Jantina <span class="text-red-500">*</span></label>
-                            <select id="jantina" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white font-semibold">
+                            <select id="jantina" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white font-semibold" required>
                                 <option value="">-- Pilih Jantina --</option>
                                 <option value="Lelaki">Lelaki</option>
                                 <option value="Perempuan">Perempuan</option>
@@ -347,7 +347,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">6. Bangsa <span class="text-red-500">*</span></label>
-                            <select id="bangsa" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white font-semibold">
+                            <select id="bangsa" class="w-full border-2 border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm focus:border-sky-500 focus:outline-none bg-white font-semibold" required>
                                 <option value="">-- Pilih Bangsa --</option>
                                 <option value="Melayu">Melayu</option>
                                 <option value="Cina">Cina</option>
@@ -734,7 +734,7 @@
                 options: [
                     { label: "A", val: "5.65" },
                     { label: "B", val: "0.328" },
-                    { label: "C", val: "$3 \\times 3 \\times 41$", correct: true },
+                    { label: "C", val: "3 x 3 x 41", correct: true },
                     { label: "D", val: "$\\frac{1}{125}$" }
                 ]
             },
@@ -774,7 +774,7 @@
             },
             {
                 id: 10,
-                instruction: "NYATAKAN TITIK MINIMUM BAGI PERSAMAAN KUADRATIK BERIKUT",
+                instruction: "NYATAKAN TITIK MINIMUN BAGI PERSAMAAN KUADRATIK BERIKUT",
                 expression: "$$y = (x - 4)^2 + 7$$",
                 options: [
                     { label: "A", val: "(5, 7)" },
@@ -876,19 +876,24 @@
             container.innerHTML = mathQuizQuestions.map((q) => `
                 <div class="bg-slate-950 text-white rounded-3xl p-5 sm:p-6 shadow-xl border-4 border-slate-800 space-y-4">
                     
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-                        <div class="flex items-center space-x-2">
-                            <span class="bg-amber-400 text-amber-950 font-heading font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
-                                SOALAN ${q.id}
-                            </span>
-                        </div>
-                        <span class="text-[10px] sm:text-xs font-bold bg-slate-800 text-sky-300 px-3 py-1 rounded-full border border-slate-700">
-                            ${q.instruction}
+                    <!-- Header Badge Soalan -->
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <span class="bg-amber-400 text-amber-950 font-heading font-extrabold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider shadow-md">
+                            SOALAN ${q.id}
                         </span>
                     </div>
 
-                    ${q.expression ? `<div class="text-lg sm:text-2xl font-bold text-center py-3 text-sky-100 uppercase tracking-wide leading-relaxed">${q.expression}</div>` : ''}
+                    <!-- Kad Khas Soalan (Berada Tepat Di Bawah Tajuk Soalan) -->
+                    <div class="bg-slate-900 border-2 border-slate-800 rounded-2xl p-4 sm:p-5 text-center space-y-3 shadow-inner">
+                        <div class="inline-block">
+                            <span class="text-[10px] sm:text-xs font-bold bg-slate-800 text-sky-300 px-3 py-1 rounded-full border border-slate-700 tracking-wider">
+                                ${q.instruction}
+                            </span>
+                        </div>
+                        ${q.expression ? `<div class="text-lg sm:text-2xl font-bold text-sky-100 uppercase tracking-wide leading-relaxed pt-1">${q.expression}</div>` : ''}
+                    </div>
 
+                    <!-- Pilihan Jawapan A, B, C, D -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                         ${q.options.map((opt, oIdx) => `
                             <div>
@@ -913,21 +918,52 @@
             }
         }
 
-        // Navigation Step Wizard
+        // Navigation Step Wizard (DIKEMASKINI DENGAN SEMAKAN KETAT SEMUA RUANGAN WAJIB)
         function goToStep(step) {
-            if (step === 2) {
+            if (step === 2 || step === 3) {
+                // 1. Semak Kategori
                 if (!currentCategory) {
-                    showModal('Sila pilih Kategori terlebih dahulu.');
+                    showModal('Sila pilih Kategori anda terlebih dahulu.');
                     return;
                 }
-                const name = document.getElementById('namaPenuh').value;
-                const ic = document.getElementById('icNumber').value;
+
+                // 2. Semak Maklumat Asas Peserta
+                const name = document.getElementById('namaPenuh').value.trim();
+                const ic = document.getElementById('icNumber').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const noTel = document.getElementById('noTel').value.trim();
                 const jantina = document.getElementById('jantina').value;
                 const bangsa = document.getElementById('bangsa').value;
 
-                if (!name || !ic || !jantina || !bangsa) {
-                    showModal('Sila lengkapkan Maklumat Asas Peserta (Nama, No. IC, Jantina, dan Bangsa).');
+                if (!name || !ic || !email || !noTel || !jantina || !bangsa) {
+                    showModal('Sila lengkapkan SEMUA Maklumat Asas Peserta (Nama, No. IC, Emel, No. Tel, Jantina, & Bangsa).');
                     return;
+                }
+
+                // 3. Semak Maklumat Khusus mengikut Kategori
+                if (currentCategory === 'sekolah') {
+                    const namaSekolah = document.getElementById('namaSekolah').value.trim();
+                    const kodSekolah = document.getElementById('kodSekolah').value.trim();
+                    const tingkatan = document.getElementById('tingkatan').value;
+
+                    if (!namaSekolah || !kodSekolah || !tingkatan) {
+                        showModal('Sila lengkapkan SEMUA Maklumat Sekolah & Tingkatan (Nama Sekolah, Kod Sekolah, dan Tingkatan).');
+                        return;
+                    }
+                } else if (currentCategory === 'politeknik') {
+                    const namaInstitusiPoly = document.getElementById('namaInstitusiPoly').value.trim();
+                    if (!namaInstitusiPoly) {
+                        showModal('Sila isi Nama Institusi anda.');
+                        return;
+                    }
+                } else if (currentCategory === 'lain') {
+                    const namaInstitusiGuru = document.getElementById('namaInstitusiGuru').value.trim();
+                    const jawatan = document.getElementById('jawatan').value.trim();
+
+                    if (!namaInstitusiGuru || !jawatan) {
+                        showModal('Sila lengkapkan Nama Institusi/Sekolah dan Jawatan anda.');
+                        return;
+                    }
                 }
             }
 
