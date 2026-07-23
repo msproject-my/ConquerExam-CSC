@@ -266,6 +266,34 @@
             <!-- ================= BAHAGIAN A: DEMOGRAFI ================= -->
             <div id="sectionA" class="space-y-6">
                 
+                <!-- NOTIS DISCLAIMER & KERAHSIAAN DATA -->
+                <div class="bg-sky-50/80 border-2 border-sky-200 rounded-2xl p-4 sm:p-5 space-y-3 shadow-inner text-slate-700 text-xs sm:text-sm">
+                    <div class="flex items-center space-x-2.5 text-sky-900 border-b border-sky-200 pb-2">
+                        <div class="w-7 h-7 bg-sky-600 text-white rounded-lg flex items-center justify-center text-xs font-bold shadow shrink-0">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h3 class="font-heading font-extrabold uppercase tracking-wide text-xs sm:text-sm">
+                            Notis Makluman & Kerahsiaan Data Peserta
+                        </h3>
+                    </div>
+                    
+                    <ul class="space-y-2 leading-relaxed text-slate-700">
+                        <li class="flex items-start space-x-2">
+                            <span class="font-bold text-sky-700 shrink-0">1. Tujuan:</span>
+                            <span>Maklumat yang dikumpul melalui soal selidik dan cabaran ini adalah untuk melengkapkan <strong>sijil penyertaan</strong> dan membantu pihak penganjur bersama <strong>CASIO</strong> untuk menilai keberkesanan bengkel serta menambah baik bengkel pada masa hadapan.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="font-bold text-sky-700 shrink-0">2. Kerahsiaan:</span>
+                            <span>Semua maklumat peserta <strong>hanya disimpan oleh pihak penganjur dan pihak CASIO</strong>. Data anda tidak akan dikongsi kepada mana-mana pihak ketiga.</span>
+                        </li>
+                    </ul>
+
+                    <div class="pt-2 border-t border-sky-200/60 text-[11px] font-bold text-sky-800 italic flex items-center space-x-1.5">
+                        <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                        <span>Dengan melengkapkan borang ini, anda bersetuju maklumat anda digunakan untuk tujuan yang dinyatakan di atas.</span>
+                    </div>
+                </div>
+
                 <div class="header-3d-blue text-white p-3.5 rounded-2xl flex items-center justify-between">
                     <div class="flex items-center space-x-3">
                         <div class="w-9 h-9 bg-amber-400 text-amber-950 rounded-xl flex items-center justify-center text-lg shadow font-extrabold">
@@ -843,7 +871,7 @@
             }
         }
 
-        // Render Section B Questions (DEFAULT KOSONG TANPA SEBARANG CHOICE SELECTED)
+        // Render Section B Questions
         function renderLikertQuestions() {
             const container = document.getElementById('likertQuestionsContainer');
             container.innerHTML = likertQuestions.map((q, idx) => `
@@ -954,10 +982,9 @@
             return true;
         }
 
-        // Navigation Step Wizard (DIKEMASKINI: PENUNJUK WARNA TUKAR IKUT STATUS SELESAI)
+        // Navigation Step Wizard
         function goToStep(step) {
             if (step === 2 || step === 3) {
-                // Semak Bahagian A jika mahu ke Step 2 atau Step 3
                 if (!isSectionAComplete()) {
                     showModal('Sila lengkapkan SEMUA maklumat dalam Bahagian A terlebih dahulu.');
                     return;
@@ -965,7 +992,6 @@
             }
 
             if (step === 3) {
-                // Semak Bahagian B jika mahu ke Step 3
                 if (!isSectionBComplete()) {
                     showModal('Sila jawab semua soalan dalam Bahagian B terlebih dahulu.');
                     return;
@@ -980,7 +1006,6 @@
             const tab2 = document.getElementById('stepTab2');
             const tab3 = document.getElementById('stepTab3');
 
-            // Kemaskini warna penunjuk bergantung pada bahagian aktif dan status lengkap
             if (step === 1) {
                 document.getElementById('sectionA').classList.remove('hidden');
                 tab1.className = 'step-pill-active flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
@@ -1112,7 +1137,6 @@
             document.getElementById('liveTimerBadge').classList.add('hidden');
             document.getElementById('sectionResult').classList.remove('hidden');
 
-            // KEMASKINI: Tukar ketiga-tiga indicator navigasi kepada HIJAU (Selesai sepenuhnya)
             document.getElementById('stepTab1').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
             document.getElementById('stepTab2').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
             document.getElementById('stepTab3').className = 'step-pill-done flex-1 text-center py-2 px-2 rounded-xl transition-all cursor-pointer';
