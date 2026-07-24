@@ -513,84 +513,6 @@
             font-size: 11px;
             color: #64748b;
         }
-
-        .admin-btn {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            padding: 5px 10px;
-            border-radius: 8px;
-            color: #475569;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .admin-btn:hover {
-            background: #e2e8f0;
-            color: #0f172a;
-        }
-
-        /* Modal Overlay Tetapan URL */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
-        }
-
-        .modal-card h3 {
-            font-size: 16px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 12px;
-        }
-
-        .input-group {
-            margin-bottom: 12px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: #475569;
-            margin-bottom: 4px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 12px;
-            outline: none;
-        }
-
-        .input-group input:focus {
-            border-color: #0284c7;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-top: 18px;
-        }
     </style>
 </head>
 <body>
@@ -897,45 +819,14 @@
 
         <div class="admin-bar">
             <span>Status Portal: <strong id="portal-status-label" style="color: #0284c7;">Menunggu Pendaftaran Peserta</strong></span>
-            <div>
-              
         </div>
 
-    </div>
-
-    <!-- Modal Tetapan Pautan URL -->
-    <div class="modal-overlay" id="config-modal">
-        <div class="modal-card">
-            <h3><i class="fa-solid fa-link"></i> Tetapan Admin</h3>
-            <p style="font-size: 11px; color: #64748b; margin-bottom: 12px;">Kemaskini pautan borang dan katalaluan bengkel di sini:</p>
-            
-            <div class="input-group">
-                <label for="input-pre-url">URL Pre-Test (Pra-Penilaian):</label>
-                <input type="url" id="input-pre-url" placeholder="Pre-test.html atau https://forms.gle/xyz">
-            </div>
-
-            <div class="input-group">
-                <label for="input-post-url">URL Post-Test (Post-Penilaian):</label>
-                <input type="url" id="input-post-url" placeholder="Post-test.html atau https://forms.gle/xyz">
-            </div>
-
-            <div class="input-group">
-                <label for="input-passcode">Katalaluan Bengkel (Untuk Buka Post-Test):</label>
-                <input type="text" id="input-passcode" placeholder="Contoh: CASIO2026">
-            </div>
-
-            <div class="modal-actions">
-                <button class="admin-btn" onclick="resetProgress()" style="color: #b91c1c;">Reset Progress Saya</button>
-                <button class="admin-btn" onclick="closeModal()">Batal</button>
-                <button class="btn-action btn-pre" style="padding: 8px 16px; width: auto; font-size: 12px;" onclick="saveUrlConfig()">Simpan Tetapan</button>
-            </div>
-        </div>
     </div>
 
     <script>
         const DEFAULT_PRE_URL = "Pre-test.html";
         const DEFAULT_POST_URL = "Post-test.html";
-        const DEFAULT_PASSCODE = "CASIO2026"; // Katalaluan laluan asal
+        const DEFAULT_PASSCODE = "CASIO2026"; // Katalaluan asal
 
         document.addEventListener("DOMContentLoaded", function() {
             initPortal();
@@ -944,17 +835,11 @@
         function initPortal() {
             let preUrl = localStorage.getItem('casio_pre_url') || DEFAULT_PRE_URL;
             let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
-            let passcode = localStorage.getItem('casio_passcode') || DEFAULT_PASSCODE;
             let hasCompletedPre = localStorage.getItem('casio_has_completed_pre') === 'true';
 
             // Set pautan
             document.getElementById('btn-pre').href = preUrl;
             document.getElementById('btn-post').href = postUrl;
-
-            // Masukkan nilai ke dalam modal tetapan
-            document.getElementById('input-pre-url').value = preUrl;
-            document.getElementById('input-post-url').value = postUrl;
-            document.getElementById('input-passcode').value = passcode;
 
             // Semak jika peserta sudah klik Pre-test
             if (hasCompletedPre) {
@@ -1023,7 +908,6 @@
 
             return true; // Pautan dibuka
         }
-
-     
+    </script>
 </body>
 </html>
