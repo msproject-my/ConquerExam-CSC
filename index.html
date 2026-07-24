@@ -91,22 +91,6 @@
             letter-spacing: 0.5px;
         }
 
-        .inst-badge-kpt {
-            background: #1e3a8a;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 10px;
-        }
-
-        .inst-badge-politeknik {
-            background: #d97706;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 10px;
-        }
-
         /* Banner Header */
         .header-box {
             background: linear-gradient(180deg, var(--header-gradient-top) 0%, var(--header-gradient-bottom) 100%);
@@ -253,20 +237,6 @@
             margin-top: 5px;
         }
 
-        .badge-pajsk {
-            background: linear-gradient(180deg, #102a45 0%, #051329 100%);
-            color: #fbbf24;
-            border: 2px solid #fbbf24;
-            padding: 5px 12px;
-            border-radius: 30px;
-            font-size: 11px;
-            font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-        }
-
         .badge-sijil {
             background: linear-gradient(180deg, #16a34a 0%, #15803d 100%);
             color: #ffffff;
@@ -324,15 +294,6 @@
             color: #334155;
         }
 
-        .step-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            color: white;
-            font-size: 11px;
-            font-weight: 800;
-            background: #0284c7;
-        }
-
         .cards-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -366,11 +327,19 @@
             box-shadow: 0 8px 0 #0369a1, 0 10px 15px rgba(0,0,0,0.06);
         }
 
-        /* Post-Test Style */
+        /* Post-Test Style Active */
         .card-post {
             background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%);
             border-color: #10b981;
             box-shadow: 0 8px 0 #047857, 0 10px 15px rgba(0,0,0,0.06);
+        }
+
+        /* Post-Test Style Locked */
+        .card-post.locked {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+            box-shadow: 0 8px 0 #64748b;
+            opacity: 0.75;
         }
 
         .card-tag {
@@ -389,6 +358,7 @@
 
         .tag-active-step { background: #0284c7; color: white; border: 1.5px solid white; }
         .tag-post-step { background: #10b981; color: white; border: 1.5px solid white; }
+        .tag-locked-step { background: #64748b; color: white; border: 1.5px solid white; }
 
         .card-icon-circle {
             width: 60px;
@@ -404,6 +374,7 @@
 
         .card-pre .card-icon-circle { background: #0284c7; color: white; }
         .card-post .card-icon-circle { background: #10b981; color: white; }
+        .card-post.locked .card-icon-circle { background: #64748b; color: white; }
 
         .card-title {
             font-family: 'Montserrat', sans-serif;
@@ -461,6 +432,13 @@
         .btn-post:hover {
             transform: translateY(-2px);
             box-shadow: 0 7px 0 #065f46;
+        }
+
+        .btn-disabled {
+            background: #94a3b8 !important;
+            box-shadow: 0 5px 0 #475569 !important;
+            border: 1.5px solid #cbd5e1 !important;
+            cursor: not-allowed;
         }
 
         .btn-action:active {
@@ -624,7 +602,6 @@
 
     <div class="main-container">
         
-   
         <!-- Banner Header Utama -->
         <div class="header-box">
             <div class="header-badge">BORANG PENDAFTARAN & PENILAIAN</div>
@@ -671,7 +648,6 @@
                             <span class="badge-sijil" style="background: linear-gradient(180deg, #d97706 0%, #b45309 100%); border-color: #fde047;">
                                 <i class="fa-solid fa-award"></i> Hadiah Menarik
                             </span>
-                       
                         </div>
                     </div>
                 </div>
@@ -864,7 +840,7 @@
 
         <div class="step-progress-bar">
             <span><i class="fa-solid fa-list-ol" style="color: #0284c7; margin-right: 6px;"></i> Urutan Penilaian:</span>
-           
+            <span id="progress-status-text" style="color: #0284c7;">Langkah 1 Sahaja Dibuka</span>
         </div>
 
         <div class="cards-grid">
@@ -880,27 +856,27 @@
                         Maklumat Peserta, Pra-Soal Selidik & Soalan Cabaran Matematik Asas.
                     </div>
                 </div>
-                <a href="#" id="btn-pre" target="_blank" class="btn-action btn-pre">
+                <a href="#" id="btn-pre" target="_blank" class="btn-action btn-pre" onclick="handlePreClick(event)">
                     <span>Mula PENDAFTARAN</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
 
             <!-- Kad 2: Post-Test -->
-            <div class="card card-post" id="card-post">
-                <span class="card-tag tag-post-step">Langkah 2 (Selepas Bengkel)</span>
+            <div class="card card-post locked" id="card-post">
+                <span class="card-tag tag-locked-step" id="post-tag">Terkunci (Selesaikan Langkah 1)</span>
                 <div>
-                    <div class="card-icon-circle">
-                        <i class="fa-solid fa-graduation-cap"></i>
+                    <div class="card-icon-circle" id="post-icon">
+                        <i class="fa-solid fa-lock"></i>
                     </div>
                     <div class="card-title">02. PENILAIAN</div>
-                    <div class="card-desc">
-                        Penilaian Selepas Bengkel, Post-Soal Selidik & Cabaran Akhir.
+                    <div class="card-desc" id="post-desc">
+                        Penilaian Selepas Bengkel. Dibuka selepas pendaftaran & memasukkan katalaluan bengkel.
                     </div>
                 </div>
-                <a href="#" id="btn-post" target="_blank" class="btn-action btn-post" onclick="handlePostClick(event)">
-                    <span>Mula PENILAIAN</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                <a href="#" id="btn-post" target="_blank" class="btn-action btn-disabled" onclick="handlePostClick(event)">
+                    <span id="btn-post-label">BELUM DIBUKA</span>
+                    <i class="fa-solid fa-lock" id="btn-post-icon"></i>
                 </a>
             </div>
         </div>
@@ -909,7 +885,7 @@
             <div class="note-icon">!</div>
             <div class="note-text">
                 <strong>ARAHAN UTAMA:</strong> Sila lengkapkan borang <strong>Pendaftaran (Langkah 1)</strong> sebelum bermulanya bengkel. 
-                Setelah selesai bengkel, sila jawab borang <strong>Penilaian (Langkah 2)</strong>.
+                Selesai pendaftaran, masukkan <strong>Katalaluan Bengkel</strong> yang akan diberi oleh penceramah di akhir sesi untuk menjawab borang <strong>Penilaian (Langkah 2)</strong>.
             </div>
         </div>
 
@@ -920,9 +896,9 @@
         </div>
 
         <div class="admin-bar">
-            <span>Status Portal: <strong style="color: #16a34a;">Borang Dibuka Untuk Peserta</strong></span>
+            <span>Status Portal: <strong id="portal-status-label" style="color: #0284c7;">Menunggu Pendaftaran Peserta</strong></span>
             <div>
-                
+                <button class="admin-btn" onclick="openModal()"><i class="fa-solid fa-gear"></i> Tetapan Admin</button>
             </div>
         </div>
 
@@ -931,8 +907,8 @@
     <!-- Modal Tetapan Pautan URL -->
     <div class="modal-overlay" id="config-modal">
         <div class="modal-card">
-            <h3><i class="fa-solid fa-link"></i> Tetapan Pautan URL Form</h3>
-            <p style="font-size: 11px; color: #64748b; margin-bottom: 12px;">Masukkan pautan Google Form / Microsoft Form di sini:</p>
+            <h3><i class="fa-solid fa-link"></i> Tetapan Admin</h3>
+            <p style="font-size: 11px; color: #64748b; margin-bottom: 12px;">Kemaskini pautan borang dan katalaluan bengkel di sini:</p>
             
             <div class="input-group">
                 <label for="input-pre-url">URL Pre-Test (Pra-Penilaian):</label>
@@ -944,9 +920,15 @@
                 <input type="url" id="input-post-url" placeholder="Post-test.html atau https://forms.gle/xyz">
             </div>
 
+            <div class="input-group">
+                <label for="input-passcode">Katalaluan Bengkel (Untuk Buka Post-Test):</label>
+                <input type="text" id="input-passcode" placeholder="Contoh: CASIO2026">
+            </div>
+
             <div class="modal-actions">
+                <button class="admin-btn" onclick="resetProgress()" style="color: #b91c1c;">Reset Progress Saya</button>
                 <button class="admin-btn" onclick="closeModal()">Batal</button>
-                <button class="btn-action btn-pre" style="padding: 8px 16px; width: auto; font-size: 12px;" onclick="saveUrlConfig()">Simpan Pautan</button>
+                <button class="btn-action btn-pre" style="padding: 8px 16px; width: auto; font-size: 12px;" onclick="saveUrlConfig()">Simpan Tetapan</button>
             </div>
         </div>
     </div>
@@ -954,6 +936,7 @@
     <script>
         const DEFAULT_PRE_URL = "Pre-test.html";
         const DEFAULT_POST_URL = "Post-test.html";
+        const DEFAULT_PASSCODE = "CASIO2026"; // Katalaluan laluan asal
 
         document.addEventListener("DOMContentLoaded", function() {
             initPortal();
@@ -962,25 +945,84 @@
         function initPortal() {
             let preUrl = localStorage.getItem('casio_pre_url') || DEFAULT_PRE_URL;
             let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
+            let passcode = localStorage.getItem('casio_passcode') || DEFAULT_PASSCODE;
+            let hasCompletedPre = localStorage.getItem('casio_has_completed_pre') === 'true';
 
-            // Set pautan terus ke butang
+            // Set pautan
             document.getElementById('btn-pre').href = preUrl;
             document.getElementById('btn-post').href = postUrl;
 
-            // Masukkan nilai ke dalam tetapan modal
+            // Masukkan nilai ke dalam modal tetapan
             document.getElementById('input-pre-url').value = preUrl;
             document.getElementById('input-post-url').value = postUrl;
+            document.getElementById('input-passcode').value = passcode;
+
+            // Semak jika peserta sudah klik Pre-test
+            if (hasCompletedPre) {
+                unlockPostCardUI();
+            }
+        }
+
+        function handlePreClick(e) {
+            // Simpan status bahawa peserta telah menekan Pre-Test
+            localStorage.setItem('casio_has_completed_pre', 'true');
+            unlockPostCardUI();
+        }
+
+        function unlockPostCardUI() {
+            const cardPost = document.getElementById('card-post');
+            const postTag = document.getElementById('post-tag');
+            const postIcon = document.getElementById('post-icon');
+            const btnPost = document.getElementById('btn-post');
+            const btnPostLabel = document.getElementById('btn-post-label');
+            const btnPostIcon = document.getElementById('btn-post-icon');
+            const progressStatus = document.getElementById('progress-status-text');
+            const portalStatusLabel = document.getElementById('portal-status-label');
+
+            cardPost.classList.remove('locked');
+            
+            postTag.className = "card-tag tag-post-step";
+            postTag.innerText = "Langkah 2 (Selepas Bengkel)";
+
+            postIcon.innerHTML = '<i class="fa-solid fa-graduation-cap"></i>';
+
+            btnPost.className = "btn-action btn-post";
+            btnPostLabel.innerText = "Mula PENILAIAN";
+            btnPostIcon.className = "fa-solid fa-arrow-right";
+
+            progressStatus.innerText = "Langkah 1 Selesai! Langkah 2 Boleh Diisi";
+            progressStatus.style.color = "#16a34a";
+
+            portalStatusLabel.innerText = "Langkah 1 Selesai — Sedia Untuk Bengkel";
+            portalStatusLabel.style.color = "#16a34a";
         }
 
         function handlePostClick(e) {
-            // Memberikan ingatan mesra apabila peserta menekan Post-Test
-            const confirmOpen = confirm("Peringatan: Pastikan anda telah melengkapkan Pre-Test (Langkah 1) sebelum menjawab Post-Test. Teruskan ke Post-Test?");
-            
-            if (!confirmOpen) {
+            let hasCompletedPre = localStorage.getItem('casio_has_completed_pre') === 'true';
+
+            // Halangan 1: Sekiranya belum klik Pre-Test
+            if (!hasCompletedPre) {
                 e.preventDefault();
+                alert("Ralat: Anda perlu melengkapkan '01. PENDAFTARAN' (Langkah 1) terlebih dahulu!");
                 return false;
             }
-            return true;
+
+            // Halangan 2: Minta Katalaluan Bengkel
+            let requiredPasscode = localStorage.getItem('casio_passcode') || DEFAULT_PASSCODE;
+            let userPasscode = prompt("Sila masukkan Katalaluan Bengkel (Diberi oleh penceramah di akhir sesi):");
+
+            if (userPasscode === null) {
+                e.preventDefault(); // Peserta tekan cancel
+                return false;
+            }
+
+            if (userPasscode.trim().toUpperCase() !== requiredPasscode.trim().toUpperCase()) {
+                e.preventDefault();
+                alert("Katalaluan Salah! Sila dapatkan katalaluan yang betul daripada penceramah bengkel.");
+                return false;
+            }
+
+            return true; // Pautan dibuka
         }
 
         function openModal() {
@@ -994,13 +1036,20 @@
         function saveUrlConfig() {
             const preVal = document.getElementById('input-pre-url').value.trim();
             const postVal = document.getElementById('input-post-url').value.trim();
+            const passVal = document.getElementById('input-passcode').value.trim();
 
             if (preVal) localStorage.setItem('casio_pre_url', preVal);
             if (postVal) localStorage.setItem('casio_post_url', postVal);
+            if (passVal) localStorage.setItem('casio_passcode', passVal);
 
             initPortal();
             closeModal();
-            alert("Pautan URL berjaya disimpan!");
+            alert("Tetapan Admin berjaya disimpan!");
+        }
+
+        function resetProgress() {
+            localStorage.removeItem('casio_has_completed_pre');
+            location.reload();
         }
     </script>
 </body>
