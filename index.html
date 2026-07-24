@@ -778,7 +778,7 @@
                         Maklumat Peserta, Pra-Soal Selidik & Soalan Cabaran Matematik Asas.
                     </div>
                 </div>
-                <a href="#" id="btn-pre" target="_blank" class="btn-action btn-pre" onclick="handlePreClick(event)">
+                <a href="Pre-test.html" id="btn-pre" target="_blank" class="btn-action btn-pre" onclick="handlePreClick(event)">
                     <span>Mula PENDAFTARAN</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
@@ -796,7 +796,7 @@
                         Penilaian Selepas Bengkel. Dibuka selepas pendaftaran & memasukkan katalaluan bengkel.
                     </div>
                 </div>
-                <a href="#" id="btn-post" target="_blank" class="btn-action btn-disabled" onclick="handlePostClick(event)">
+                <a href="Post-test.html" id="btn-post" target="_blank" class="btn-action btn-disabled" onclick="handlePostClick(event)">
                     <span id="btn-post-label">BELUM DIBUKA</span>
                     <i class="fa-solid fa-lock" id="btn-post-icon"></i>
                 </a>
@@ -833,11 +833,11 @@
         });
 
         function initPortal() {
-            let preUrl = localStorage.getItem('casio_pre_url') || DEFAULT_PRE_URL;
-            let postUrl = localStorage.getItem('casio_post_url') || DEFAULT_POST_URL;
+            let preUrl = DEFAULT_PRE_URL;
+            let postUrl = DEFAULT_POST_URL;
             let hasCompletedPre = localStorage.getItem('casio_has_completed_pre') === 'true';
 
-            // Set pautan
+            // Set pautan terus ke fail tempatan
             document.getElementById('btn-pre').href = preUrl;
             document.getElementById('btn-post').href = postUrl;
 
@@ -892,7 +892,7 @@
             }
 
             // Halangan 2: Minta Katalaluan Bengkel
-            let requiredPasscode = localStorage.getItem('casio_passcode') || DEFAULT_PASSCODE;
+            let requiredPasscode = DEFAULT_PASSCODE;
             let userPasscode = prompt("Sila masukkan Katalaluan Bengkel (Diberi oleh penceramah di akhir sesi):");
 
             if (userPasscode === null) {
