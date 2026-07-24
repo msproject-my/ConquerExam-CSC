@@ -898,8 +898,7 @@
         <div class="admin-bar">
             <span>Status Portal: <strong id="portal-status-label" style="color: #0284c7;">Menunggu Pendaftaran Peserta</strong></span>
             <div>
-                <button class="admin-btn" onclick="openModal()"><i class="fa-solid fa-gear"></i> Tetapan Admin</button>
-            </div>
+              
         </div>
 
     </div>
@@ -1025,32 +1024,6 @@
             return true; // Pautan dibuka
         }
 
-        function openModal() {
-            document.getElementById('config-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('config-modal').style.display = 'none';
-        }
-
-        function saveUrlConfig() {
-            const preVal = document.getElementById('input-pre-url').value.trim();
-            const postVal = document.getElementById('input-post-url').value.trim();
-            const passVal = document.getElementById('input-passcode').value.trim();
-
-            if (preVal) localStorage.setItem('casio_pre_url', preVal);
-            if (postVal) localStorage.setItem('casio_post_url', postVal);
-            if (passVal) localStorage.setItem('casio_passcode', passVal);
-
-            initPortal();
-            closeModal();
-            alert("Tetapan Admin berjaya disimpan!");
-        }
-
-        function resetProgress() {
-            localStorage.removeItem('casio_has_completed_pre');
-            location.reload();
-        }
-    </script>
+     
 </body>
 </html>
